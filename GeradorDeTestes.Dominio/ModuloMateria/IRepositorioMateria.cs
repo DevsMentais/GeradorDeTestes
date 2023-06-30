@@ -1,6 +1,8 @@
-﻿namespace GeradorDeTestes.Dominio.ModuloMateria
+﻿using GeradorDeTestes.Dominio.Compartilhado;
+
+namespace GeradorDeTestes.Dominio.ModuloMateria
 {
-    public class IRepositorioMateria
+    public interface IRepositorioMateria : IRepositorioBase<Materia>
     {
     }
 }

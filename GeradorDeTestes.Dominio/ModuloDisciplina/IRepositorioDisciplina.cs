@@ -1,6 +1,8 @@
-﻿namespace GeradorDeTestes.Dominio.ModuloDisciplina
+﻿using GeradorDeTestes.Dominio.Compartilhado;
+
+namespace GeradorDeTestes.Dominio.ModuloDisciplina
 {
-    public class IRepositorioDisciplina
+    public interface IRepositorioDisciplina : IRepositorioBase<Disciplina>
     {
     }
 }

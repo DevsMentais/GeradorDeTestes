@@ -1,6 +1,11 @@
 ﻿namespace GeradorDeTestes.Dominio.Compartilhado
 {
-    public class EntidadeBase
+    public abstract class EntidadeBase<TEntidade>
     {
+        public int id;
+
+        public abstract void AtualizarInformacoes(TEntidade registroAtualizado);
+
+        public abstract string[] Validar();
     }
 }
