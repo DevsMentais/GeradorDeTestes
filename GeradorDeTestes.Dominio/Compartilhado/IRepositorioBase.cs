@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GeradorDeTestes.Dominio.Compartilhado
+﻿namespace GeradorDeTestes.Dominio.Compartilhado
 {
-    internal class IRepositorioBase
+    public interface IRepositorioBase<TEntidade> where TEntidade : EntidadeBase<TEntidade>
     {
+        void Inserir(TEntidade novoRegistro);
+        void Editar(int id, TEntidade registro);
+        void Excluir(TEntidade registroSelecionado);
+        TEntidade SelecionarPorId(int id);
+        List<TEntidade> SelecionarTodos();
     }
 }
