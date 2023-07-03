@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GeradorDeTestes.WinForms.Compartilhado
+﻿namespace GeradorDeTestes.WinForms.Compartilhado
 {
     public abstract class ControladorBase
     {
@@ -16,6 +10,10 @@ namespace GeradorDeTestes.WinForms.Compartilhado
 
         public virtual string ToolTipVisualizar { get; }
 
+        public virtual string ToolTipDuplicar { get; }
+
+        public virtual string ToolTipSalvar { get; }
+
         public virtual bool InserirHabilitado { get { return true; } }
 
         public virtual bool EditarHabilitado { get { return true; } }
@@ -24,6 +22,10 @@ namespace GeradorDeTestes.WinForms.Compartilhado
 
         public virtual bool VisualizarHabilitado { get { return true; } }
 
+        public virtual bool DuplicarHabilitado { get { return true; } }
+
+        public virtual bool SalvarHabilitado { get { return true; } }
+
         public abstract void Inserir();
 
         public abstract void Editar();
@@ -31,6 +33,16 @@ namespace GeradorDeTestes.WinForms.Compartilhado
         public abstract void Excluir();
 
         public virtual void Visualizar()
+        {
+
+        }
+
+        public virtual void Duplicar()
+        {
+
+        }
+
+        public virtual void Salvar()
         {
 
         }

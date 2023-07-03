@@ -36,7 +36,7 @@
             disciplinaMenuItem = new ToolStripMenuItem();
             questoesMenuItem = new ToolStripMenuItem();
             testesMenuItem = new ToolStripMenuItem();
-            toolStrip1 = new ToolStrip();
+            barraFerramentas = new ToolStrip();
             btnInserir = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
@@ -52,7 +52,7 @@
             statusStrip1 = new StatusStrip();
             lblStatus = new ToolStripStatusLabel();
             menuBar.SuspendLayout();
-            toolStrip1.SuspendLayout();
+            barraFerramentas.SuspendLayout();
             panelRegistros.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -92,16 +92,18 @@
             materiaMenuItem.Image = Properties.Resources.study__1_;
             materiaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             materiaMenuItem.Name = "materiaMenuItem";
-            materiaMenuItem.Size = new Size(180, 22);
+            materiaMenuItem.Size = new Size(125, 22);
             materiaMenuItem.Text = "Matéria";
+            materiaMenuItem.Click += materiaMenuItem_Click;
             // 
             // disciplinaMenuItem
             // 
             disciplinaMenuItem.Image = Properties.Resources.graduation_hat__2_;
             disciplinaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             disciplinaMenuItem.Name = "disciplinaMenuItem";
-            disciplinaMenuItem.Size = new Size(180, 22);
+            disciplinaMenuItem.Size = new Size(125, 22);
             disciplinaMenuItem.Text = "Disciplina";
+            disciplinaMenuItem.Click += disciplinaMenuItem_Click;
             // 
             // questoesMenuItem
             // 
@@ -110,6 +112,7 @@
             questoesMenuItem.Name = "questoesMenuItem";
             questoesMenuItem.Size = new Size(180, 22);
             questoesMenuItem.Text = "Questões";
+            questoesMenuItem.Click += questoesMenuItem_Click;
             // 
             // testesMenuItem
             // 
@@ -118,17 +121,18 @@
             testesMenuItem.Name = "testesMenuItem";
             testesMenuItem.Size = new Size(180, 22);
             testesMenuItem.Text = "Testes";
+            testesMenuItem.Click += testesMenuItem_Click;
             // 
-            // toolStrip1
+            // barraFerramentas
             // 
-            toolStrip1.BackColor = Color.White;
-            toolStrip1.ImageScalingSize = new Size(28, 28);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator1, btnDuplicar, toolStripSeparator3, btnVisualizar, toolStripSeparator4, btnSalvar, toolStripSeparator2, lblTipoCadastro });
-            toolStrip1.Location = new Point(0, 30);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(597, 49);
-            toolStrip1.TabIndex = 1;
-            toolStrip1.Text = "toolStrip1";
+            barraFerramentas.BackColor = Color.White;
+            barraFerramentas.ImageScalingSize = new Size(28, 28);
+            barraFerramentas.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator1, btnDuplicar, toolStripSeparator3, btnVisualizar, toolStripSeparator4, btnSalvar, toolStripSeparator2, lblTipoCadastro });
+            barraFerramentas.Location = new Point(0, 30);
+            barraFerramentas.Name = "barraFerramentas";
+            barraFerramentas.Size = new Size(597, 49);
+            barraFerramentas.TabIndex = 1;
+            barraFerramentas.Text = "toolStrip1";
             // 
             // btnInserir
             // 
@@ -139,6 +143,7 @@
             btnInserir.Padding = new Padding(7);
             btnInserir.Size = new Size(46, 46);
             btnInserir.Text = "toolStripButton1";
+            btnInserir.Click += btnInserir_Click;
             // 
             // btnEditar
             // 
@@ -149,6 +154,7 @@
             btnEditar.Padding = new Padding(7);
             btnEditar.Size = new Size(46, 46);
             btnEditar.Text = "toolStripButton3";
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnExcluir
             // 
@@ -159,6 +165,7 @@
             btnExcluir.Padding = new Padding(7);
             btnExcluir.Size = new Size(46, 46);
             btnExcluir.Text = "toolStripButton2";
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // toolStripSeparator1
             // 
@@ -175,6 +182,7 @@
             btnDuplicar.Padding = new Padding(7);
             btnDuplicar.Size = new Size(46, 46);
             btnDuplicar.Text = "toolStripButton4";
+            btnDuplicar.Click += btnDuplicar_Click;
             // 
             // toolStripSeparator3
             // 
@@ -191,6 +199,7 @@
             btnVisualizar.Padding = new Padding(7);
             btnVisualizar.Size = new Size(46, 46);
             btnVisualizar.Text = "toolStripButton4";
+            btnVisualizar.Click += btnVisualizar_Click;
             // 
             // toolStripSeparator4
             // 
@@ -207,6 +216,7 @@
             btnSalvar.Padding = new Padding(7);
             btnSalvar.Size = new Size(46, 46);
             btnSalvar.Text = "toolStripButton4";
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // toolStripSeparator2
             // 
@@ -254,7 +264,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(597, 365);
             Controls.Add(panelRegistros);
-            Controls.Add(toolStrip1);
+            Controls.Add(barraFerramentas);
             Controls.Add(menuBar);
             MainMenuStrip = menuBar;
             Margin = new Padding(2);
@@ -263,8 +273,8 @@
             Text = "Gerador de Testes";
             menuBar.ResumeLayout(false);
             menuBar.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            barraFerramentas.ResumeLayout(false);
+            barraFerramentas.PerformLayout();
             panelRegistros.ResumeLayout(false);
             panelRegistros.PerformLayout();
             statusStrip1.ResumeLayout(false);
@@ -282,7 +292,7 @@
         private ToolStripMenuItem disciplinaMenuItem;
         private ToolStripMenuItem questoesMenuItem;
         private ToolStripMenuItem testesMenuItem;
-        private ToolStrip toolStrip1;
+        private ToolStrip barraFerramentas;
         private ToolStripButton btnInserir;
         private ToolStripButton btnEditar;
         private ToolStripButton btnExcluir;
