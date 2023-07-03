@@ -1,18 +1,20 @@
-﻿using GeradorDeTestes.WinForms.Compartilhado;
+﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloMateria
 {
     public class ControladorMateria : ControladorBase
     {
-        public override string ToolTipInserir => throw new NotImplementedException();
+        public override string ToolTipInserir => "Inserir Matéria";
 
-        public override string ToolTipEditar => throw new NotImplementedException();
+        public override string ToolTipEditar => "Editar Matéria";
 
-        public override string ToolTipExcluir => throw new NotImplementedException();
+        public override string ToolTipExcluir => "Excluir Matéria";
 
-        public override void ApresentarMensagem(string mensagem, string titulo)
+        public override void Inserir()
         {
-            throw new NotImplementedException();
+            TelaMateriaForm telaMateriaForm = new TelaMateriaForm();
+            Materia
         }
 
         public override void Editar()
@@ -25,7 +27,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             throw new NotImplementedException();
         }
 
-        public override void Inserir()
+        public override void ApresentarMensagem(string mensagem, string titulo)
         {
             throw new NotImplementedException();
         }
