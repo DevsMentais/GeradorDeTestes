@@ -1,3 +1,5 @@
+using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.WinForms.Compartilhado;
 using GeradorDeTestes.WinForms.ModuloDisciplina;
 using GeradorDeTestes.WinForms.ModuloMateria;
@@ -11,6 +13,8 @@ namespace GeradorDeTestes.WinForms
         private ControladorBase controlador;
 
         private static TelaPrincipalForm telaPrincipal;
+
+        private IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
 
         public TelaPrincipalForm()
         {
@@ -93,7 +97,7 @@ namespace GeradorDeTestes.WinForms
 
         private void disciplinaMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorDisciplina();
+            controlador = new ControladorDisciplina(repositorioDisciplina);
 
             ConfigurarTelaPrincipal(controlador);
         }
