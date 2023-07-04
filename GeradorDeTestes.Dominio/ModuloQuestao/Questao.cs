@@ -20,7 +20,11 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
 
         public override void AtualizarInformacoes(Questao registroAtualizado)
         {
-            throw new NotImplementedException();
+            Materia = registroAtualizado.Materia;
+            Enunciado = registroAtualizado.Enunciado;
+            RespostaCerta = registroAtualizado.RespostaCerta;
+            ListAlternativas = registroAtualizado.ListAlternativas;
+
         }
 
         public override string[] Validar()

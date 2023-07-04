@@ -24,7 +24,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
         public override void Inserir()
         {
-            TelaMateriaForm telaMateriaForm = new TelaMateriaForm(repositorioDisciplina.SelecionarTodos());
+            TelaQuestaoForm telaMateriaForm = new TelaQuestaoForm(repositorioDisciplina.SelecionarTodos());
 
             DialogResult opcaoEscolhida = telaMateriaForm.ShowDialog();
 
@@ -40,7 +40,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
         public override void Editar()
         {
-            TelaMateriaForm telaMateriaForm = new TelaMateriaForm(repositorioDisciplina.SelecionarTodos());
+            TelaQuestaoForm telaMateriaForm = new TelaQuestaoForm(repositorioDisciplina.SelecionarTodos());
 
             Materia materiaSelecionada = ObterMateriaSelecionada();
 

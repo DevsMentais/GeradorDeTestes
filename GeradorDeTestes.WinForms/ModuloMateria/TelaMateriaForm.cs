@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace GeradorDeTestes.WinForms.ModuloMateria
 {
-    public partial class TelaMateriaForm : Form
+    public partial class TelaQuestaoForm : Form
     {
-        public TelaMateriaForm(List<Disciplina> disciplinas)
+        public TelaQuestaoForm(List<Disciplina> disciplinas)
         {
             InitializeComponent();
 

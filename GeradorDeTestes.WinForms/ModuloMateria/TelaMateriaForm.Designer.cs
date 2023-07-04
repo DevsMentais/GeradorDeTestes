@@ -1,6 +1,6 @@
 ﻿namespace GeradorDeTestes.WinForms.ModuloMateria
 {
-    partial class TelaMateriaForm
+    partial class TelaQuestaoForm
     {
         /// <summary>
         /// Required designer variable.
