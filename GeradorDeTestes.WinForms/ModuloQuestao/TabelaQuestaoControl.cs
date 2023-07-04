@@ -1,8 +1,8 @@
 ﻿namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
-    public partial class TabelaQuestoesControl : UserControl
+    public partial class TabelaQuestaoControl : UserControl
     {
-        public TabelaQuestoesControl()
+        public TabelaQuestaoControl()
         {
             InitializeComponent();
         }

@@ -1,7 +1,5 @@
 ﻿using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.Compartilhado;
-using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 {

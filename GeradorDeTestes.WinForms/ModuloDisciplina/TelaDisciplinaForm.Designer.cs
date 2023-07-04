@@ -40,7 +40,7 @@
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancelar.DialogResult = DialogResult.Cancel;
-            btnCancelar.Location = new Point(293, 124);
+            btnCancelar.Location = new Point(293, 82);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(87, 37);
             btnCancelar.TabIndex = 0;
@@ -51,7 +51,7 @@
             // 
             btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnGravar.DialogResult = DialogResult.OK;
-            btnGravar.Location = new Point(200, 124);
+            btnGravar.Location = new Point(200, 82);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(87, 37);
             btnGravar.TabIndex = 1;
@@ -62,7 +62,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(43, 23);
+            label1.Location = new Point(334, 25);
             label1.Name = "label1";
             label1.Size = new Size(17, 15);
             label1.TabIndex = 2;
@@ -71,7 +71,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(20, 55);
+            label2.Location = new Point(18, 25);
             label2.Name = "label2";
             label2.Size = new Size(40, 15);
             label2.TabIndex = 3;
@@ -80,7 +80,7 @@
             // txtId
             // 
             txtId.Enabled = false;
-            txtId.Location = new Point(66, 20);
+            txtId.Location = new Point(357, 22);
             txtId.Name = "txtId";
             txtId.ReadOnly = true;
             txtId.Size = new Size(19, 23);
@@ -89,7 +89,7 @@
             // 
             // txtNome
             // 
-            txtNome.Location = new Point(66, 52);
+            txtNome.Location = new Point(64, 22);
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(258, 23);
             txtNome.TabIndex = 5;
@@ -98,7 +98,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(390, 170);
+            ClientSize = new Size(390, 128);
             Controls.Add(txtNome);
             Controls.Add(txtId);
             Controls.Add(label2);

@@ -3,7 +3,7 @@ using GeradorDeTestes.Infra.Dados.Sql.Compartilhado;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 {
-    public class RepositorioQuestoesEmSql : RepositorioEmSqlBase<Questoes, MapeadorQuestoes>,IRepositorioQuestoes
+    public class RepositorioQuestaoEmSql : RepositorioEmSqlBase<Questao, MapeadorQuestao>,IRepositorioQuestao
     {
         protected override string sqlInserir => throw new NotImplementedException();
 
@@ -15,27 +15,27 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 
         protected override string sqlSelecionarPorId => throw new NotImplementedException();
 
-        public void Inserir(Questoes novoRegistro)
+        public void Inserir(Questao novoRegistro)
         {
             throw new NotImplementedException();
         }
 
-        public void Editar(int id, Questoes registro)
+        public void Editar(int id, Questao registro)
         {
             throw new NotImplementedException();
         }
 
-        public void Excluir(Questoes registroSelecionado)
+        public void Excluir(Questao registroSelecionado)
         {
             throw new NotImplementedException();
         }
 
-        public Questoes SelecionarPorId(int id)
+        public Questao SelecionarPorId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Questoes> SelecionarTodos()
+        public List<Questao> SelecionarTodos()
         {
             throw new NotImplementedException();
         }

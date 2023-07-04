@@ -1,8 +1,8 @@
 ﻿namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
-    public partial class TelaQuestoesForm : Form
+    public partial class TelaQuestaoForm : Form
     {
-        public TelaQuestoesForm()
+        public TelaQuestaoForm()
         {
             InitializeComponent();
         }

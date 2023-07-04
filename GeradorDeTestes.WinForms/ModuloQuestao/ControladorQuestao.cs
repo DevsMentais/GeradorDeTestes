@@ -2,7 +2,7 @@
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
-    public class ControladorQuestoes : ControladorBase
+    public class ControladorQuestao : ControladorBase
     {
         public override string ToolTipInserir => throw new NotImplementedException();
 
