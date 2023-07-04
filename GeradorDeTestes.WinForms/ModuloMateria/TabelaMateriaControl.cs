@@ -29,7 +29,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
                 new DataGridViewTextBoxColumn
                 {
                     Name = "nome",
-                    HeaderText = "Nome"
+                    HeaderText = "Materia"
                 },
                 new DataGridViewTextBoxColumn
                 {
