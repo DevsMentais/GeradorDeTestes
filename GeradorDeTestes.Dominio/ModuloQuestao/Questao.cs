@@ -10,12 +10,13 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
         public string RespostaCerta { get; set; }
         public List<string> ListAlternativas { get; set; }
 
-        public Questao(Materia materia, string enunciado, string respostaCerta, List<string> listAlternativas)
+        public Questao(int id,Materia materia, string enunciado, string respostaCerta)
         {
+            this.id = id;
             Materia = materia;
             Enunciado = enunciado;
             RespostaCerta = respostaCerta;
-            ListAlternativas = listAlternativas;
+            ListAlternativas = new List<string>();
         }
 
         public override void AtualizarInformacoes(Questao registroAtualizado)
