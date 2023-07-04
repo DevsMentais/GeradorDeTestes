@@ -10,10 +10,13 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
     {
         private IRepositorioQuestao repositorioQuestao;
         private TabelaQuestaoControl tabelaQuestao;
-
-        public ControladorQuestao(IRepositorioQuestao repositorioQuestao)
+        private IRepositorioMateria repositorioMateria;
+              
+        
+        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria)
         {
             this.repositorioQuestao = repositorioQuestao;
+            this.repositorioMateria = repositorioMateria;
         }
 
         public override string ToolTipInserir => "Enserir Nova Questão";
@@ -30,7 +33,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
         public override void Inserir()
         {
-            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioQuestao.SelecionarTodos());
+            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos());
 
             DialogResult opcaoEscolhida = telaQuestaoForm.ShowDialog();
 
@@ -47,7 +50,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
     
         public override void Editar()
         {
-            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioQuestao.SelecionarTodos());
+            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos());
 
             Questao questaoSelecionada = ObterQuestaoSelecionada();
 
@@ -76,26 +79,32 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         {
             Questao questaoSelecionada = ObterQuestaoSelecionada();
 
-            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a matéria {questaoSelecionada.Nome}?", "Exclusão de Matérias",
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a questão {questaoSelecionada.id}?", "Exclusão de Matérias",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioMateria.Excluir(questaoSelecionada);
+                repositorioQuestao.Excluir(questaoSelecionada);
             }
 
-            CarregarMaterias();
+            CarregarQuestoes();
         }
 
 
         public override UserControl ObterListagem()
         {
-            throw new NotImplementedException();
+            if (tabelaQuestao == null)
+
+                tabelaQuestao = new TabelaQuestaoControl();
+
+            CarregarQuestoes();
+
+            return tabelaQuestao;
         }
 
         public override string ObterTipoCadastro()
         {
-            throw new NotImplementedException();
+            return "cadastro de questoes";
         }
 
         private void CarregarQuestoes()
