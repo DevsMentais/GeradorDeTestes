@@ -1,32 +1,57 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Infra.Dados.Sql.Compartilhado;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 {
-    public class RepositorioDisciplinaEmSql : IRepositorioDisciplina
+    public class RepositorioDisciplinaEmSql : RepositorioEmSqlBase<Disciplina, MapeadorDisciplina>,IRepositorioDisciplina
     {
-        public void Editar(int id, Disciplina registro)
-        {
-            throw new NotImplementedException();
-        }
+        protected override string sqlInserir => @"INSERT INTO [TBDISCIPLINA] 
+	                                            (
+		                                            [NOME]
+	                                            )
+	                                            VALUES 
+	                                            (
+		                                            @NOME
+	                                            );                 
 
-        public void Excluir(Disciplina registroSelecionado)
-        {
-            throw new NotImplementedException();
-        }
+                                            SELECT SCOPE_IDENTITY();";
 
-        public void Inserir(Disciplina novoRegistro)
-        {
-            throw new NotImplementedException();
-        }
+        protected override string sqlEditar => @"UPDATE [TBDISCIPLINA] 
+                                                SET
+                                                    [NOME] = @NOME
+                                                WHERE
+                                                    [ID] = @ID";
+
+        protected override string sqlExcluir => @"DELETE FROM [TBDISCIPLINA]
+	                                                WHERE 
+		                                                [ID] = @ID";
+
+        protected override string sqlSelecionarTodos => @"SELECT 
+	                                                    [ID]        DISCIPLINA_ID 
+	                                                   ,[NOME]      DISCIPLINA_NOME
+                                                    FROM 
+	                                                    [TBDISCIPLINA]";
+
+        protected override string sqlSelecionarPorId => @"SELECT 
+	                                                    [ID]        DISCIPLINA_ID 
+	                                                   ,[NOME]      DISCIPLINA_NOME
+                                                    FROM 
+	                                                    [TBDISCIPLINA] 
+                                                    WHERE 
+                                                        [ID] = @ID";
 
         public Disciplina SelecionarPorId(int id)
         {
-            throw new NotImplementedException();
+            Disciplina disciplina = base.SelecionarPorId(id);
+
+            return disciplina;
         }
 
         public List<Disciplina> SelecionarTodos()
         {
-            throw new NotImplementedException();
+            List<Disciplina> disciplinas = base.SelecionarTodos();
+
+            return disciplinas;
         }
     }
 }

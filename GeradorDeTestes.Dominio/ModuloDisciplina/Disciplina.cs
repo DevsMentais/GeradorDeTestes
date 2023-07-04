@@ -32,5 +32,10 @@ namespace GeradorDeTestes.Dominio.ModuloDisciplina
 
             return erros.ToArray();
         }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
     }
 }
