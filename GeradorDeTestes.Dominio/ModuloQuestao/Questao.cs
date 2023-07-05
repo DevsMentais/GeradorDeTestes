@@ -26,12 +26,29 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
             Enunciado = registroAtualizado.Enunciado;
             RespostaCerta = registroAtualizado.RespostaCerta;
             ListAlternativas = registroAtualizado.ListAlternativas;
-
         }
 
         public override string[] Validar()
         {
             throw new NotImplementedException();
+        }
+
+        public void AdicionarAlternativa(Alternativa alternativa)
+        {
+            ListAlternativas.Add(alternativa);
+        }
+
+        public bool Contem(Alternativa alternativaParaAdicionar)
+        {
+            if (ListAlternativas.Contains(alternativaParaAdicionar))
+                return true;
+
+            return false;
+        }
+
+        public void RemoverAlternativa(Alternativa alternaticaParaRemover)
+        {
+            ListAlternativas.Remove(alternaticaParaRemover);
         }
     }
 }

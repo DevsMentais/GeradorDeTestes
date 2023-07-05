@@ -1,4 +1,5 @@
 ﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
@@ -6,6 +7,8 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
     public partial class TelaQuestaoForm : Form
     {
+        private Questao questao;
+
         public TelaQuestaoForm(List<Materia> materias)
         {
             InitializeComponent();
@@ -32,30 +35,71 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             Materia materia = (Materia)cbMateria.SelectedItem;
             string repostaCerta = chListAlternativas.CheckedItems[0].ToString()!;
 
-            List<string> alternativas = new List<string>();
+            questao = new Questao(id, materia, enunciado, repostaCerta);
 
-            foreach(string Item in chListAlternativas.Items)
+            foreach (Alternativa alternativa in chListAlternativas.Items.Cast<Alternativa>().ToList())
             {
-                alternativas.Add(Item);
+                questao.ListAlternativas.Add(alternativa);
             }
 
-            Questao questao = new Questao(id,materia, enunciado, repostaCerta);
-
             return questao;
+        }
+
+        public Alternativa ObterAlternativa(Questao questao)
+        {
+            string resposta = txtResposta.Text;
+
+            return new Alternativa(questao,resposta);
         }
 
         public void ConfigurarTela(Questao questao)
         {
             txtId.Text = questao.id.ToString();
             txtEnunciado.Text = questao.Enunciado;
-            cbMateria.SelectedItem = questao.Materia.ToString();
+            cbMateria.Text = questao.Materia.ToString();
+
+            foreach(Alternativa alternativa in questao.ListAlternativas)
+            {
+                chListAlternativas.Items.Add(alternativa);
+            }
         }
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            string resposta = txtResposta.Text;
+            Alternativa alternativa = ObterAlternativa(questao);
 
-            chListAlternativas.Items.Add(resposta);
+            chListAlternativas.Items.Add(alternativa);
+        }
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+            chListAlternativas.Items.Remove(chListAlternativas.SelectedItem);
+        }
+
+        private void chListAlternativas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = chListAlternativas.SelectedIndex;
+
+            int count = chListAlternativas.Items.Count;
+
+            for (int x = 0; x < count; x++)
+            {
+                if (index != x)
+                {
+                    chListAlternativas.SetItemCheckState(x, CheckState.Unchecked);
+                }
+            }
+        }
+
+        public List<Alternativa> ObterAlternativasMarcadas()
+        {
+            return chListAlternativas.CheckedItems.Cast<Alternativa>().ToList();
+        }
+
+        public List<Alternativa> ObterAlternativasDesmarcadas()
+        {
+            return chListAlternativas.Items.Cast<Alternativa>()
+                .Except(ObterAlternativasMarcadas()).ToList();
         }
     }
 }

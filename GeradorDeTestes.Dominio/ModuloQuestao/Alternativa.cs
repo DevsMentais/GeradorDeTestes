@@ -15,6 +15,14 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
         public Questao Questao { get; set; }
         public string Resposta { get; set; }
 
+        public Alternativa(Questao questao, string resposta)
+        {
+            Correta = false;
+            Questao = questao;
+            Resposta = resposta;
+            Letra = 'A';
+        }
+
         public Alternativa(bool correta, char letra, Questao questao, string resposta)
         {
             Correta = correta;
@@ -29,6 +37,11 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
             Letra = registroAtualizado.Letra;
             Questao = registroAtualizado .Questao;
             Resposta = registroAtualizado.Resposta;
+        }
+
+        public override string ToString()
+        {
+            return Resposta;
         }
 
         public override string[] Validar()

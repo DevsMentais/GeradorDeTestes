@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[TBQuestoes] (
-    [Id]         INT           IDENTITY (1, 1) NOT NULL,
+    [Id]         INT NOT NULL IDENTITY,
     [Materia_Id] INT           NOT NULL,
     [Enunciado]  VARCHAR (MAX) NOT NULL,
     [Resposta]    VARCHAR (MAX) NOT NULL,

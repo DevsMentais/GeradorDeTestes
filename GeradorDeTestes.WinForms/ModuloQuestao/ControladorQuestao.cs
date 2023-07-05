@@ -1,5 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using GeradorDeTestes.WinForms.ModuloMateria;
@@ -41,7 +42,9 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 Questao questao = telaQuestaoForm.ObterQuestao();
 
-                repositorioQuestao.Inserir(questao);
+                List<Alternativa> alternativasAdicionadas = telaQuestaoForm.ObterAlternativasMarcadas();
+
+                repositorioQuestao.Inserir(questao, alternativasAdicionadas);
             }
 
             CarregarQuestoes();
@@ -62,7 +65,11 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 Questao questao = telaQuestaoForm.ObterQuestao();
 
-                repositorioQuestao.Editar(questao.id, questao);
+                List<Alternativa> alternativasMarcadas = telaQuestaoForm.ObterAlternativasMarcadas();
+
+                List<Alternativa> alternativasDesmarcadas = telaQuestaoForm.ObterAlternativasDesmarcadas();
+
+                repositorioQuestao.Editar(questao.id, questao, alternativasMarcadas, alternativasDesmarcadas);
             }
 
             CarregarQuestoes();
