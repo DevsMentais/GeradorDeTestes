@@ -19,12 +19,19 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
 
         public override void AtualizarInformacoes(Materia registroAtualizado)
         {
-            throw new NotImplementedException();
+            Nome = registroAtualizado.Nome;
+            Disciplina = registroAtualizado.Disciplina;
+            Serie = registroAtualizado.Serie;
         }
 
         public override string[] Validar()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Nome;
         }
     }
 }

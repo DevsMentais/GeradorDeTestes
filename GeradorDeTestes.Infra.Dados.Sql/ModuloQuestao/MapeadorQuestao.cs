@@ -21,9 +21,8 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
         public override Questao ConverterRegistro(SqlDataReader leitorRegistros)
         {
             int id = Convert.ToInt32(leitorRegistros["QUESTAO_ID"]);
-            int idMateria = Convert.ToInt32("MATERIA_ID");
             string enunciado = Convert.ToString(leitorRegistros["QUESTAO_ENUNCIADO"])!;
-            string respostaCerta = Convert.ToString(leitorRegistros["QUESTAO_REPOSTACERTA"])!;
+            string respostaCerta = Convert.ToString(leitorRegistros["QUESTAO_RESPOSTACERTA"])!;
 
             Materia materia = new MapeadorMateria().ConverterRegistro(leitorRegistros);
 

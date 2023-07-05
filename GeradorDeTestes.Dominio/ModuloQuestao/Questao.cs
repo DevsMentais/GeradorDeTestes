@@ -1,5 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.Compartilhado;
 using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 
 namespace GeradorDeTestes.Dominio.ModuloQuestoes
 {
@@ -8,7 +9,7 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
         public Materia Materia { get; set; }
         public string Enunciado { get; set; }
         public string RespostaCerta { get; set; }
-        public List<string> ListAlternativas { get; set; }
+        public List<Alternativa> ListAlternativas { get; set; }
 
         public Questao(int id,Materia materia, string enunciado, string respostaCerta)
         {
@@ -16,7 +17,7 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
             Materia = materia;
             Enunciado = enunciado;
             RespostaCerta = respostaCerta;
-            ListAlternativas = new List<string>();
+            ListAlternativas = new List<Alternativa>();
         }
 
         public override void AtualizarInformacoes(Questao registroAtualizado)

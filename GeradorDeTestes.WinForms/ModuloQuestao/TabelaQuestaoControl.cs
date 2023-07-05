@@ -9,7 +9,11 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         public TabelaQuestaoControl()
         {
             InitializeComponent();
+
+            ConfigurarColunas();
+
             grid.ConfigurarGridSomenteLeitura();
+
             grid.ConfigurarGridZebrado();
         }
 

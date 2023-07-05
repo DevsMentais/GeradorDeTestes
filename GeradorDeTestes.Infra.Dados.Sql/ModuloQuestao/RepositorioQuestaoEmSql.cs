@@ -9,7 +9,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
                                                     (
                                                         [MATERIA_ID]
                                                        ,[ENUNCIADO]
-                                                       ,[RESPOSTACERTA]
+                                                       ,[REPOSTA]
                                                     )
                                                  VALUES
                                                     (
@@ -27,12 +27,17 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 	                                                        Q.[ID]                QUESTAO_ID 
 	                                                       ,Q.[MATERIA_ID]        MATERIA_ID
 	                                                       ,Q.[ENUNCIADO]         QUESTAO_ENUNCIADO
-                                                           ,Q.[RESPOSTACERTA]     QUESTAO_RESPOSTACERTA
+                                                           ,Q.[REPOSTA]     QUESTAO_RESPOSTACERTA
                                                            ,M.[NOME]              MATERIA_NOME
+                                                           ,M.[SERIE]             MATERIA_SERIE
+                                                           ,M.[DISCIPLINA_ID]     DISCIPLINA_ID
+                                                           ,D.[NOME]   DISCIPLINA_NOME
                                                         FROM 
 	                                                        [TBQUESTOES] AS Q
                                                         INNER JOIN [TBMATERIA] AS M
-                                                                ON Q.[QUESTOES_ID] = M.ID";
+                                                                ON Q.[MATERIA_ID] = M.ID
+                                                        INNER JOIN [TBDISCIPLINA] AS D
+                                                                ON M.[DISCIPLINA_ID] = D.ID";
 
         protected override string sqlSelecionarPorId => throw new NotImplementedException();
 
