@@ -4,6 +4,7 @@ using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using GeradorDeTestes.WinForms.ModuloMateria;
+using System.Linq.Expressions;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
@@ -42,9 +43,21 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 Questao questao = telaQuestaoForm.ObterQuestao();
 
-                List<Alternativa> alternativasAdicionadas = telaQuestaoForm.ObterAlternativasMarcadas();
+                if(questao == null)
+                {
+                    TelaPrincipalForm.Instancia.AtualizarRodape("É necessário adicionar uma alternativa");
+                    telaQuestaoForm.ShowDialog();
+                    return;
+                }
 
-                repositorioQuestao.Inserir(questao, alternativasAdicionadas);
+                if(questao.RespostaCerta == "erro")
+                {
+                    TelaPrincipalForm.Instancia.AtualizarRodape("É necessário marcar uma alternativa");
+                    telaQuestaoForm.ShowDialog();
+                    return;
+                }
+
+                repositorioQuestao.Inserir(questao, questao.ListAlternativas);
             }
 
             CarregarQuestoes();
@@ -91,6 +104,18 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             if (opcaoEscolhida == DialogResult.OK)
             {
+                if (opcaoEscolhida == DialogResult.OK)
+                {
+                    try
+                    {
+                        repositorioQuestao.Excluir(questaoSelecionada);
+                    }
+                    catch (Microsoft.Data.SqlClient.SqlException)
+                    {
+                        ApresentarMensagem("Não é possível excluir a questão pois ela possui um teste!", "Exclusão de Questões");
+                    }
+                }
+
                 repositorioQuestao.Excluir(questaoSelecionada);
             }
 

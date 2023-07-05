@@ -28,7 +28,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
                                                   ,[RESPOSTA] = @RESPOSTACERTA
                                              WHERE [ID] = @ID;";
 
-        protected override string sqlExcluir => throw new NotImplementedException();
+        protected override string sqlExcluir => @"DELETE FROM [TBQUESTOES]
+	                                                WHERE 
+		                                                [ID] = @ID";
 
         protected override string sqlSelecionarTodos => @"SELECT 
 	                                                        Q.[ID]                QUESTAO_ID 
@@ -121,11 +123,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 
         public void Inserir(Questao questao, List<Alternativa> alternativasAdicionadas)
         {
-            foreach (Alternativa alternativa in alternativasAdicionadas)
-            {
-                questao.AdicionarAlternativa(alternativa);
-            }
-
             //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();

@@ -37,7 +37,8 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
             if (Disciplina == null)
                 erros.Add("O campo  'disciplina' é obrigatorio");
 
-            //fazer validacao da serie
+            if (Serie == 0)
+                erros.Add("O campo 'série' é obrigatório");
 
             return erros.ToArray();
         }

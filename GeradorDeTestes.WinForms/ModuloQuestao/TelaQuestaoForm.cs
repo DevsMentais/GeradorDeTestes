@@ -12,6 +12,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         public TelaQuestaoForm(List<Materia> materias)
         {
             InitializeComponent();
+
             this.ConfigurarDialog();
 
             CarregarMaterias(materias);
@@ -32,14 +33,30 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             int id = int.Parse(txtId.Text);
             string enunciado = txtEnunciado.Text;
             Materia materia = (Materia)cbMateria.SelectedItem;
-            string repostaCerta = chListAlternativas.CheckedItems[0].ToString()!;
+            string respostaCerta;
 
-            questao = new Questao(id, materia, enunciado, repostaCerta);
+            if(chListAlternativas.Items.Count == 0)
+                return null;
 
-            foreach (Alternativa alternativa in chListAlternativas.Items.Cast<Alternativa>().ToList())
+            if (chListAlternativas.CheckedItems.Count == 0)
+                respostaCerta = "erro";
+            else
+                respostaCerta = chListAlternativas.CheckedItems[0].ToString()!;
+
+
+            questao = new Questao(id, materia, enunciado, respostaCerta);
+
+            foreach (Alternativa alternativa in ObterAlternativasDesmarcadas())
             {
-                questao.ListAlternativas.Add(alternativa);
+                questao.AdicionarAlternativa(alternativa);
             }
+
+            foreach (Alternativa alternativaMarcada in ObterAlternativasMarcadas())
+            {
+                Alternativa alternativa = new Alternativa(questao, respostaCerta, true);
+                alternativa.Correta = true;
+                questao.AdicionarAlternativa(alternativa);
+            } 
 
             return questao;
         }
@@ -48,7 +65,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         {
             string resposta = txtResposta.Text;
 
-            return new Alternativa(questao, resposta);
+            return new Alternativa(questao, resposta, false);
         }
 
         public void ConfigurarTela(Questao questao)
@@ -60,12 +77,41 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             foreach (Alternativa alternativa in questao.ListAlternativas)
             {
                 chListAlternativas.Items.Add(alternativa);
+
+                //if (alternativa.Correta)
+                //{
+                //    int index = chListAlternativas.Items.IndexOf(alternativa);
+                //    chListAlternativas.SetItemChecked(index, true);
+                //}
+            }
+
+            int i = 0;
+
+            for (int j = 0; j < chListAlternativas.Items.Count; j++)
+            {
+                Alternativa alternativa = (Alternativa)chListAlternativas.Items[j];
+
+                if (alternativa.Correta)
+                {
+                    if (questao.ListAlternativas.Contains(alternativa))
+                    {
+                        chListAlternativas.SetItemChecked(i, true);
+                    }
+
+                    i++;
+                }
             }
         }
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
             Alternativa alternativa = ObterAlternativa(questao);
+
+            if(alternativa.Resposta == "")
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape("É necessário ter uma resposta");
+                return;
+            }
 
             chListAlternativas.Items.Add(alternativa);
         }

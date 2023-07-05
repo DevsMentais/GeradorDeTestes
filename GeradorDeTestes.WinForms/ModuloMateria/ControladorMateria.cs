@@ -53,6 +53,16 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             {
                 Materia materia = telaMateriaForm.ObterMateria();
 
+                foreach (Materia m in repositorioMateria.SelecionarTodos())
+                {
+                    if (materia.Nome == m.Nome)
+                    {
+                        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
+                        telaMateriaForm.ShowDialog();
+                        return;
+                    }
+                }
+
                 repositorioMateria.Editar(materia.id, materia);
             }
 
@@ -69,7 +79,14 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
             if(opcaoEscolhida == DialogResult.OK )
             {
-                repositorioMateria.Excluir(materiaSelecionada);
+                try
+                {
+                    repositorioMateria.Excluir(materiaSelecionada);
+                }
+                catch (Microsoft.Data.SqlClient.SqlException)
+                {
+                    ApresentarMensagem("Não é possível excluir a materia pois ela possui uma questão!", "Exclusão de Materia");
+                }
             }
 
             CarregarMaterias();

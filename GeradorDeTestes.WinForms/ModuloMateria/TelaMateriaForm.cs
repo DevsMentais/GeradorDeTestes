@@ -52,7 +52,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
         {
             txtId.Text = materiaSelecionada.id.ToString();
             txtNome.Text = materiaSelecionada.Nome;
-            cbDisciplina.SelectedItem = materiaSelecionada.Disciplina;
+            cbDisciplina.Text = materiaSelecionada.Disciplina.ToString();
 
             if (materiaSelecionada.Serie == 1)
                 rdbPrimeiro.Checked = true;

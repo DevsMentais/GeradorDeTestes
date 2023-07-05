@@ -1,5 +1,7 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.WinForms.Compartilhado;
+using System.Drawing.Drawing2D;
 
 namespace GeradorDeTestes.WinForms.ModuloDisciplina
 {
@@ -18,6 +20,8 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
         public override string ToolTipEditar => "Editar Disciplina existente";
 
         public override string ToolTipExcluir => "Excluir Disciplina existente";
+
+        public override string ToolTipVisualizar => "Visualizar Matérias da Disciplina";
 
         public override void Inserir()
         {
@@ -54,6 +58,16 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             {
                 Disciplina disciplina = telaDisciplina.ObterDisciplina();
 
+                foreach (Disciplina d in repositorioDisciplina.SelecionarTodos())
+                {
+                    if (disciplina.Nome == d.Nome)
+                    {
+                        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
+                        telaDisciplina.ShowDialog();
+                        return;
+                    }
+                }
+
                 repositorioDisciplina.Editar(disciplina.id, disciplina);
 
                 CarregarDisciplina();
@@ -82,7 +96,14 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
                     return;
                 }
 
-                repositorioDisciplina.Excluir(disciplina);
+                try
+                {
+                    repositorioDisciplina.Excluir(disciplina);
+                }
+                catch (Microsoft.Data.SqlClient.SqlException)
+                {
+                    ApresentarMensagem("Não é possível excluir a disciplina pois ela possui uma materia!", "Exclusão de Disciplina");
+                } 
             }
 
             CarregarDisciplina();
