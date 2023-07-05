@@ -42,8 +42,8 @@
             cbMateria = new ComboBox();
             chProvaRecup = new CheckBox();
             groupBox1 = new GroupBox();
-            btnSortear = new Button();
             listBoxSorteadas = new ListBox();
+            btnSortear = new Button();
             ((System.ComponentModel.ISupportInitialize)numQtdQuestoes).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -70,36 +70,41 @@
             // btnGravar
             // 
             btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnGravar.BackColor = Color.PowderBlue;
             btnGravar.DialogResult = DialogResult.OK;
-            btnGravar.Location = new Point(184, 336);
+            btnGravar.Location = new Point(184, 375);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(87, 37);
             btnGravar.TabIndex = 10;
             btnGravar.Text = "Gravar";
-            btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.UseVisualStyleBackColor = false;
+            btnGravar.Click += btnGravar_Click;
             // 
             // btnCancelar
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancelar.BackColor = Color.PowderBlue;
             btnCancelar.DialogResult = DialogResult.Cancel;
-            btnCancelar.Location = new Point(277, 336);
+            btnCancelar.Location = new Point(277, 375);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(87, 37);
             btnCancelar.TabIndex = 9;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(33, 30);
             label2.Name = "label2";
-            label2.Size = new Size(37, 15);
+            label2.Size = new Size(40, 15);
             label2.TabIndex = 13;
-            label2.Text = "Título";
+            label2.Text = "Título:";
             // 
             // cbDisciplina
             // 
+            cbDisciplina.BackColor = Color.PowderBlue;
+            cbDisciplina.DropDownStyle = ComboBoxStyle.DropDownList;
             cbDisciplina.FormattingEnabled = true;
             cbDisciplina.Location = new Point(76, 71);
             cbDisciplina.Name = "cbDisciplina";
@@ -111,18 +116,18 @@
             label3.AutoSize = true;
             label3.Location = new Point(12, 74);
             label3.Name = "label3";
-            label3.Size = new Size(58, 15);
+            label3.Size = new Size(61, 15);
             label3.TabIndex = 15;
-            label3.Text = "Disciplina";
+            label3.Text = "Disciplina:";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Location = new Point(228, 74);
             label4.Name = "label4";
-            label4.Size = new Size(82, 15);
+            label4.Size = new Size(85, 15);
             label4.TabIndex = 16;
-            label4.Text = "Qtd. Questões";
+            label4.Text = "Qtd. Questões:";
             // 
             // numQtdQuestoes
             // 
@@ -143,12 +148,14 @@
             label5.AutoSize = true;
             label5.Location = new Point(23, 116);
             label5.Name = "label5";
-            label5.Size = new Size(47, 15);
+            label5.Size = new Size(50, 15);
             label5.TabIndex = 19;
-            label5.Text = "Matéria";
+            label5.Text = "Matéria:";
             // 
             // cbMateria
             // 
+            cbMateria.BackColor = Color.PowderBlue;
+            cbMateria.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMateria.FormattingEnabled = true;
             cbMateria.Location = new Point(76, 113);
             cbMateria.Name = "cbMateria";
@@ -168,38 +175,40 @@
             // groupBox1
             // 
             groupBox1.Controls.Add(listBoxSorteadas);
-            groupBox1.Controls.Add(btnSortear);
-            groupBox1.Location = new Point(12, 142);
+            groupBox1.Location = new Point(12, 181);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(350, 188);
             groupBox1.TabIndex = 22;
             groupBox1.TabStop = false;
             groupBox1.Text = "Questões Selecionadas";
             // 
-            // btnSortear
-            // 
-            btnSortear.Location = new Point(6, 22);
-            btnSortear.Name = "btnSortear";
-            btnSortear.Size = new Size(75, 23);
-            btnSortear.TabIndex = 0;
-            btnSortear.Text = "Sortear";
-            btnSortear.UseVisualStyleBackColor = true;
-            // 
             // listBoxSorteadas
             // 
             listBoxSorteadas.FormattingEnabled = true;
             listBoxSorteadas.ItemHeight = 15;
-            listBoxSorteadas.Location = new Point(6, 51);
+            listBoxSorteadas.Location = new Point(6, 21);
             listBoxSorteadas.Name = "listBoxSorteadas";
-            listBoxSorteadas.Size = new Size(338, 124);
+            listBoxSorteadas.Size = new Size(338, 154);
             listBoxSorteadas.TabIndex = 1;
+            // 
+            // btnSortear
+            // 
+            btnSortear.BackColor = Color.PowderBlue;
+            btnSortear.Location = new Point(12, 142);
+            btnSortear.Name = "btnSortear";
+            btnSortear.Size = new Size(350, 33);
+            btnSortear.TabIndex = 0;
+            btnSortear.Text = "Sortear";
+            btnSortear.UseVisualStyleBackColor = false;
             // 
             // TelaTesteForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(376, 385);
+            BackColor = Color.Honeydew;
+            ClientSize = new Size(376, 424);
             Controls.Add(groupBox1);
+            Controls.Add(btnSortear);
             Controls.Add(chProvaRecup);
             Controls.Add(cbMateria);
             Controls.Add(label5);

@@ -1,22 +1,20 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloMateria
 {
     public partial class TelaQuestaoForm : Form
     {
-        public TelaQuestaoForm(List<Disciplina> disciplinas)
+        private List<Materia> materias;
+
+        public TelaQuestaoForm(List<Disciplina> disciplinas, List<Materia> materias)
         {
+            this.materias = materias;
+
             InitializeComponent();
+            this.ConfigurarDialog();
 
             CarregarDisciplinas(disciplinas);
         }
@@ -60,6 +58,37 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
                 rdbPrimeiro.Checked = true;
             if (materiaSelecionada.Serie == 2)
                 rdbSegundo.Checked = true;
+        }
+
+        private void btnGravar_Click(object sender, EventArgs e)
+        {
+            Materia materia = ObterMateria();
+
+            ValidarErros(materia);
+        }
+
+        private void ValidarErros(Materia materia)
+        {
+            if (materia == null) return;
+
+            string[] erros = materia.Validar();
+
+            if (erros.Length > 0)
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+
+                DialogResult = DialogResult.None;
+            }
+
+            foreach (Materia d in materias)
+            {
+                if (materia.Nome == d.Nome && txtId.Text == "0")
+                {
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+
+                    DialogResult = DialogResult.None;
+                }
+            }
         }
     }
 }

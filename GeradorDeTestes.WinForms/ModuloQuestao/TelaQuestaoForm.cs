@@ -12,7 +12,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         public TelaQuestaoForm(List<Materia> materias)
         {
             InitializeComponent();
-
             this.ConfigurarDialog();
 
             CarregarMaterias(materias);
@@ -49,7 +48,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         {
             string resposta = txtResposta.Text;
 
-            return new Alternativa(questao,resposta);
+            return new Alternativa(questao, resposta);
         }
 
         public void ConfigurarTela(Questao questao)
@@ -58,7 +57,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             txtEnunciado.Text = questao.Enunciado;
             cbMateria.Text = questao.Materia.ToString();
 
-            foreach(Alternativa alternativa in questao.ListAlternativas)
+            foreach (Alternativa alternativa in questao.ListAlternativas)
             {
                 chListAlternativas.Items.Add(alternativa);
             }
@@ -100,6 +99,27 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         {
             return chListAlternativas.Items.Cast<Alternativa>()
                 .Except(ObterAlternativasMarcadas()).ToList();
+        }
+
+        private void btnGravar_Click(object sender, EventArgs e)
+        {
+            Questao questao = ObterQuestao();
+
+            ValidarErros(questao);
+        }
+
+        private void ValidarErros(Questao questao)
+        {
+            if (questao == null) return;
+
+            string[] erros = questao.Validar();
+
+            if (erros.Length > 0)
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+
+                DialogResult = DialogResult.None;
+            }
         }
     }
 }

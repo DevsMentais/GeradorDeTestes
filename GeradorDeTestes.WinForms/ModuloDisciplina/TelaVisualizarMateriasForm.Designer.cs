@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtId = new TextBox();
-            label1 = new Label();
             btnCancelar = new Button();
             label2 = new Label();
             lblDisciplina = new Label();
@@ -38,35 +36,17 @@
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // txtId
-            // 
-            txtId.Enabled = false;
-            txtId.Location = new Point(274, 17);
-            txtId.Name = "txtId";
-            txtId.ReadOnly = true;
-            txtId.Size = new Size(19, 23);
-            txtId.TabIndex = 8;
-            txtId.Text = "0";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(251, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(17, 15);
-            label1.TabIndex = 7;
-            label1.Text = "id";
-            // 
             // btnCancelar
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancelar.BackColor = Color.PowderBlue;
             btnCancelar.DialogResult = DialogResult.Cancel;
             btnCancelar.Location = new Point(18, 325);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(275, 37);
             btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Fechar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -109,12 +89,11 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Honeydew;
             ClientSize = new Size(305, 374);
             Controls.Add(groupBox1);
             Controls.Add(lblDisciplina);
             Controls.Add(label2);
-            Controls.Add(txtId);
-            Controls.Add(label1);
             Controls.Add(btnCancelar);
             Name = "TelaVisualizarMateriasForm";
             Text = "Visualizar Materias da Disciplina";
@@ -124,9 +103,6 @@
         }
 
         #endregion
-
-        private TextBox txtId;
-        private Label label1;
         private Button btnCancelar;
         private Label label2;
         private Label lblDisciplina;

@@ -15,7 +15,6 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             this.disciplinas = disciplinas;
 
             InitializeComponent();
-
             this.ConfigurarDialog();
         }
 

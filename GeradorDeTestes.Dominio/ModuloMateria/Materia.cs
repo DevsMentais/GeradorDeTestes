@@ -26,7 +26,20 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
 
         public override string[] Validar()
         {
-            throw new NotImplementedException();
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(Nome))
+                erros.Add("O campo 'nome' é obrigatorio");
+
+            if (Nome.Length <= 5)
+                erros.Add("O campo nome deve conter mais de 5 caracteres");
+
+            if (Disciplina == null)
+                erros.Add("O campo  'disciplina' é obrigatorio");
+
+            //fazer validacao da serie
+
+            return erros.ToArray();
         }
 
         public override string ToString()

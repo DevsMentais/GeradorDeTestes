@@ -1,9 +1,11 @@
 using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using GeradorDeTestes.WinForms.ModuloDisciplina;
 using GeradorDeTestes.WinForms.ModuloMateria;
@@ -21,6 +23,7 @@ namespace GeradorDeTestes.WinForms
         private IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
         private IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         private IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+        private IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
         public TelaPrincipalForm()
         {
@@ -117,7 +120,7 @@ namespace GeradorDeTestes.WinForms
 
         private void testesMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorTeste();
+            controlador = new ControladorTeste(repositorioTeste);
 
             ConfigurarTelaPrincipal(controlador);
         }
@@ -139,7 +142,7 @@ namespace GeradorDeTestes.WinForms
 
         private void btnDuplicar_Click(object sender, EventArgs e)
         {
-            controlador.Duplicar(); 
+            controlador.Duplicar();
         }
 
         private void btnVisualizar_Click(object sender, EventArgs e)

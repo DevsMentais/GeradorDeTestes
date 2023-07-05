@@ -1,43 +1,131 @@
-﻿using GeradorDeTestes.WinForms.Compartilhado;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.Dominio.ModuloTestes;
+using GeradorDeTestes.WinForms.Compartilhado;
+using GeradorDeTestes.WinForms.ModuloQuestoes;
 
 namespace GeradorDeTestes.WinForms.ModuloTestes
 {
     public class ControladorTeste : ControladorBase
     {
-        public override string ToolTipInserir => throw new NotImplementedException();
+        private IRepositorioTeste repositorioTeste;
+        private IRepositorioDisciplina repositorioDisciplina;
+        private IRepositorioMateria repositorioMateria;
+        private TabelaTesteControl tabelaTeste;
 
-        public override string ToolTipEditar => throw new NotImplementedException();
-
-        public override string ToolTipExcluir => throw new NotImplementedException();
-
-        public override void ApresentarMensagem(string mensagem, string titulo)
+        public ControladorTeste(IRepositorioTeste repositorioTeste)
         {
-            throw new NotImplementedException();
+            this.repositorioTeste = repositorioTeste;
         }
+
+        public override string ToolTipInserir => "Inserir Novo Teste";
+
+        public override string ToolTipEditar => "Editar Teste Existente";
+
+        public override string ToolTipExcluir => "Excluir Teste Existente";
+
+        public override void Inserir()
+        {
+            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos());
+
+            DialogResult opcaoEscolhida = telaTestes.ShowDialog();
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Teste teste = telaTestes.ObterTeste();
+
+                repositorioTeste.Inserir(teste);
+            }
+            CarregarTestes();
+        }
+
 
         public override void Editar()
         {
-            throw new NotImplementedException();
+            Teste testeSelecionado = ObterTesteSelecionado();
+
+            if (testeSelecionado == null)
+            {
+                MessageBox.Show("Selecione um teste primeiro", "Edição de Testes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
+            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos());
+            telaTestes.Text = "Editar teste existente";
+
+            telaTestes.ConfigurarTela(testeSelecionado);
+
+            DialogResult opcaoEscolhida = telaTestes.ShowDialog();
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Teste teste = telaTestes.ObterTeste();
+
+                repositorioTeste.Editar(teste.id, teste);
+            }
+
+            CarregarTestes();
         }
 
         public override void Excluir()
         {
-            throw new NotImplementedException();
+            Teste teste = ObterTesteSelecionado();
+
+            if (teste == null)
+            {
+                MessageBox.Show($"Selecione um teste primeiro!",
+                    "Exclusão de Testes",
+                    MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir um teste?", "Exclusão de Testes",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                repositorioTeste.Excluir(teste);
+            }
+
+            CarregarTestes();
         }
 
-        public override void Inserir()
+        private Teste ObterTesteSelecionado()
         {
-            throw new NotImplementedException();
+            int id = tabelaTeste.ObterIdSelecionado();
+
+            return repositorioTeste.SelecionarPorId(id);
+        }
+
+
+        private void CarregarTestes()
+        {
+            List<Teste> listaTestes = repositorioTeste.SelecionarTodos();
+
+            tabelaTeste.AtualizarRegistros(listaTestes);
         }
 
         public override UserControl ObterListagem()
         {
-            throw new NotImplementedException();
+            if (tabelaTeste == null)
+                tabelaTeste = new TabelaTesteControl();
+
+            CarregarTestes();
+
+            return tabelaTeste;
         }
 
         public override string ObterTipoCadastro()
         {
-            throw new NotImplementedException();
+            return "Registro de Testes";
+        }
+
+        public override void ApresentarMensagem(string mensagem, string titulo)
+        {
+            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }

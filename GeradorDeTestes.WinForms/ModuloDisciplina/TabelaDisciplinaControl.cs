@@ -17,16 +17,6 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
         }
 
-        public void AtualizarRegistros(List<Disciplina> disciplinas)
-        {
-            grid.Rows.Clear();
-            foreach (Disciplina cliente in disciplinas)
-            {
-                grid.Rows.Add(cliente.id, cliente.Nome);
-            }
-            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
-        }
-
         private void ConfigurarColunas()
         {
             DataGridViewColumn[] colunas = new DataGridViewColumn[]
@@ -44,6 +34,16 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             };
 
             grid.Columns.AddRange(colunas);
+        }
+
+        public void AtualizarRegistros(List<Disciplina> disciplinas)
+        {
+            grid.Rows.Clear();
+            foreach (Disciplina cliente in disciplinas)
+            {
+                grid.Rows.Add(cliente.id, cliente.Nome);
+            }
+            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {disciplinas.Count} disciplina(s)");
         }
 
         public int ObterIdSelecionado()

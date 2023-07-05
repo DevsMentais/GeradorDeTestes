@@ -25,10 +25,10 @@ namespace GeradorDeTestes.Dominio.ModuloDisciplina
             List<string> erros = new List<string>();
 
             if (string.IsNullOrEmpty(Nome))
-                erros.Add("O campo  'nome' é obrigatorio");
+                erros.Add("O campo 'nome' é obrigatorio");
 
             if (Nome.Length <= 5)
-                erros.Add("O campo nome deve ter mais de 5 caracteres");
+                erros.Add("O campo nome deve conter mais de 5 caracteres");
 
             return erros.ToArray();
         }

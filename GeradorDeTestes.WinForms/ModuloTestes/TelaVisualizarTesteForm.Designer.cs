@@ -43,40 +43,41 @@
             // btnFechar
             // 
             btnFechar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnFechar.BackColor = Color.PowderBlue;
             btnFechar.DialogResult = DialogResult.Cancel;
-            btnFechar.Location = new Point(266, 355);
+            btnFechar.Location = new Point(18, 355);
             btnFechar.Name = "btnFechar";
-            btnFechar.Size = new Size(87, 37);
+            btnFechar.Size = new Size(335, 37);
             btnFechar.TabIndex = 10;
             btnFechar.Text = "Fechar";
-            btnFechar.UseVisualStyleBackColor = true;
+            btnFechar.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(39, 26);
             label1.Name = "label1";
-            label1.Size = new Size(37, 15);
+            label1.Size = new Size(40, 15);
             label1.TabIndex = 11;
-            label1.Text = "Título";
+            label1.Text = "Título:";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(18, 58);
             label2.Name = "label2";
-            label2.Size = new Size(58, 15);
+            label2.Size = new Size(61, 15);
             label2.TabIndex = 12;
-            label2.Text = "Disciplina";
+            label2.Text = "Disciplina:";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Location = new Point(29, 89);
             label3.Name = "label3";
-            label3.Size = new Size(47, 15);
+            label3.Size = new Size(50, 15);
             label3.TabIndex = 13;
-            label3.Text = "Matéria";
+            label3.Text = "Matéria:";
             // 
             // lblTitulo
             // 
@@ -128,6 +129,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Honeydew;
             ClientSize = new Size(365, 404);
             Controls.Add(groupBox1);
             Controls.Add(lblMateria);

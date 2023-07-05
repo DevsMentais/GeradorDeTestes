@@ -39,24 +39,26 @@
             // btnCancelar
             // 
             btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancelar.BackColor = Color.PowderBlue;
             btnCancelar.DialogResult = DialogResult.Cancel;
-            btnCancelar.Location = new Point(293, 82);
+            btnCancelar.Location = new Point(293, 68);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(87, 37);
             btnCancelar.TabIndex = 0;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // btnGravar
             // 
             btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnGravar.BackColor = Color.PowderBlue;
             btnGravar.DialogResult = DialogResult.OK;
-            btnGravar.Location = new Point(200, 82);
+            btnGravar.Location = new Point(200, 68);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(87, 37);
             btnGravar.TabIndex = 1;
             btnGravar.Text = "Gravar";
-            btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.UseVisualStyleBackColor = false;
             btnGravar.Click += btnGravar_Click;
             // 
             // label1
@@ -73,9 +75,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(18, 25);
             label2.Name = "label2";
-            label2.Size = new Size(40, 15);
+            label2.Size = new Size(43, 15);
             label2.TabIndex = 3;
-            label2.Text = "Nome";
+            label2.Text = "Nome:";
             // 
             // txtId
             // 
@@ -98,7 +100,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(390, 128);
+            BackColor = Color.Honeydew;
+            ClientSize = new Size(390, 114);
             Controls.Add(txtNome);
             Controls.Add(txtId);
             Controls.Add(label2);

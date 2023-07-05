@@ -1,5 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloMateria
@@ -24,7 +25,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
         public override void Inserir()
         {
-            TelaQuestaoForm telaMateriaForm = new TelaQuestaoForm(repositorioDisciplina.SelecionarTodos());
+            TelaQuestaoForm telaMateriaForm = new TelaQuestaoForm(repositorioDisciplina.SelecionarTodos(), repositorioMateria.SelecionarTodos());
 
             DialogResult opcaoEscolhida = telaMateriaForm.ShowDialog();
 
@@ -40,7 +41,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
         public override void Editar()
         {
-            TelaQuestaoForm telaMateriaForm = new TelaQuestaoForm(repositorioDisciplina.SelecionarTodos());
+            TelaQuestaoForm telaMateriaForm = new TelaQuestaoForm(repositorioDisciplina.SelecionarTodos(), repositorioMateria.SelecionarTodos());
 
             Materia materiaSelecionada = ObterMateriaSelecionada();
 
