@@ -14,9 +14,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
         private IRepositorioMateria repositorioMateria;
         private TabelaTesteControl tabelaTeste;
 
-        public ControladorTeste(IRepositorioTeste repositorioTeste)
+        public ControladorTeste(IRepositorioTeste repositorioTeste, IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria)
         {
             this.repositorioTeste = repositorioTeste;
+            this.repositorioDisciplina = repositorioDisciplina;
+            this.repositorioMateria = repositorioMateria;
         }
 
         public override string ToolTipInserir => "Inserir Novo Teste";
