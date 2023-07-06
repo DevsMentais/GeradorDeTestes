@@ -2,15 +2,19 @@
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
+using System.Drawing.Drawing2D;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
     public partial class TelaQuestaoForm : Form
     {
         private Questao questao;
+        List<Questao> questoes;
 
-        public TelaQuestaoForm(List<Materia> materias)
+        public TelaQuestaoForm(List<Materia> materias, List<Questao> questoes)
         {
+            this.questoes = questoes;   
+
             InitializeComponent();
 
             this.ConfigurarDialog();
@@ -77,12 +81,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             foreach (Alternativa alternativa in questao.ListAlternativas)
             {
                 chListAlternativas.Items.Add(alternativa);
-
-                //if (alternativa.Correta)
-                //{
-                //    int index = chListAlternativas.Items.IndexOf(alternativa);
-                //    chListAlternativas.SetItemChecked(index, true);
-                //}
             }
 
             int i = 0;
@@ -165,6 +163,16 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
 
                 DialogResult = DialogResult.None;
+            }
+
+            foreach (Questao q in questoes)
+            {
+                if (questao.Enunciado == q.Enunciado && txtId.Text == "0")
+                {
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+
+                    DialogResult = DialogResult.None;
+                }
             }
         }
     }

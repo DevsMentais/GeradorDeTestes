@@ -4,6 +4,7 @@ using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using GeradorDeTestes.WinForms.ModuloMateria;
+using System.Drawing.Drawing2D;
 using System.Linq.Expressions;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
@@ -35,7 +36,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
         public override void Inserir()
         {
-            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos());
+            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
 
             DialogResult opcaoEscolhida = telaQuestaoForm.ShowDialog();
 
@@ -66,7 +67,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
     
         public override void Editar()
         {
-            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos());
+            TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
 
             Questao questaoSelecionada = ObterQuestaoSelecionada();
 
@@ -82,7 +83,18 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
                 List<Alternativa> alternativasDesmarcadas = telaQuestaoForm.ObterAlternativasDesmarcadas();
 
+                foreach (Questao q in repositorioQuestao.SelecionarTodos())
+                {
+                    if (questao.Enunciado == q.Enunciado)
+                    {
+                        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
+                        telaQuestaoForm.ShowDialog();
+                        return;
+                    }
+                }
+
                 repositorioQuestao.Editar(questao.id, questao, alternativasMarcadas, alternativasDesmarcadas);
+
             }
 
             CarregarQuestoes();

@@ -1,8 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.Compartilhado;
-using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
-using System.Reflection.Metadata;
 
 namespace GeradorDeTestes.Dominio.ModuloQuestoes
 {
@@ -48,7 +46,6 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
 
             if (ListAlternativas.Count > 5)
                 erros.Add("O valor máximo de alternativas é 5");
-
 
             return erros.ToArray();
         }

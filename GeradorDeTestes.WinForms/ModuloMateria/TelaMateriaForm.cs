@@ -1,15 +1,14 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
-using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloMateria
 {
-    public partial class TelaQuestaoForm : Form
+    public partial class TelaMateriaForm : Form
     {
         private List<Materia> materias;
 
-        public TelaQuestaoForm(List<Disciplina> disciplinas, List<Materia> materias)
+        public TelaMateriaForm(List<Disciplina> disciplinas, List<Materia> materias)
         {
             this.materias = materias;
 

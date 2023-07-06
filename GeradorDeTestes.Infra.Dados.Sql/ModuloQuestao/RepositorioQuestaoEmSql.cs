@@ -123,7 +123,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 
         public void Inserir(Questao questao, List<Alternativa> alternativasAdicionadas)
         {
-            //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
