@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
@@ -52,7 +53,8 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             foreach (Questao questao in questoes)
             {
                 grid.Rows.Add(questao.id, questao.Materia, questao.Enunciado, questao.RespostaCerta);
-            }     
+            }
+            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {questoes.Count} questão(s)");
         }
         public int ObterIdSelecionado()
         {

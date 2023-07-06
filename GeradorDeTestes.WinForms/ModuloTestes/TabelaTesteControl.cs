@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloTestes;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloTestes
@@ -63,6 +64,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             {
                 grid.Rows.Add(teste.id, teste.Titulo, teste.Disciplina, teste.Materia, teste.QuantidadeQuestoes, teste.ProvaRecuperacao);
             }
+            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {testes.Count} teste(s)");
         }
 
         public int ObterIdSelecionado()

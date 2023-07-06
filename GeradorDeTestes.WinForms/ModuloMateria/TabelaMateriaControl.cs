@@ -54,6 +54,7 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             {
                 grid.Rows.Add(materia.id, materia.Nome, materia.Disciplina, materia.Serie);
             }
+            TelaPrincipalForm.Instancia.AtualizarRodape($"Visualizando {materias.Count} materia(s)");
         }
 
         public int ObterIdSelecionado()

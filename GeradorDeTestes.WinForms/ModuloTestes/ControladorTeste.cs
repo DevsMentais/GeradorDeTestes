@@ -3,6 +3,7 @@ using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
+using GeradorDeTestes.WinForms.ModuloDisciplina;
 using GeradorDeTestes.WinForms.ModuloQuestoes;
 
 namespace GeradorDeTestes.WinForms.ModuloTestes
@@ -29,7 +30,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override string ToolTipExcluir => "Excluir Teste Existente";
 
-        public override string ToolTipVisualizar => "Visualizar Matérias da Disciplina";
+        public override string ToolTipVisualizar => "Visualizar Questões do Teste";
 
         public override string ToolTipSalvar => "Salvar Teste em PDF";
 
@@ -37,6 +38,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override void Inserir()
         {
+            List<Questao> questoes = repositorioQuestao.SelecionarTodos();
             TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),
                 repositorioDisciplina.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
 
@@ -46,7 +48,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             {
                 Teste teste = telaTestes.ObterTeste();
 
-                repositorioTeste.Inserir(teste);
+                repositorioTeste.Inserir(teste, questoes);
             }
             CarregarTestes();
         }
@@ -103,6 +105,25 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             }
 
             CarregarTestes();
+        }
+
+        public override void Visualizar()
+        {
+            Teste teste = ObterTesteSelecionado();
+
+            TelaVisualizarTesteForm telaListagem = new TelaVisualizarTesteForm();
+
+            if (teste == null)
+            {
+                ApresentarMensagem("Selecione um teste primeiro!", "Listagem de teste");
+                return;
+            }
+
+            telaListagem.CarregarLabel(teste);
+
+            telaListagem.CarregarLista(teste.ListQuestoes);
+
+            telaListagem.ShowDialog();
         }
 
         private Teste ObterTesteSelecionado()
