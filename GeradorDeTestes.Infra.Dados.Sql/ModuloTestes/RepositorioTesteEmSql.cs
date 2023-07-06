@@ -127,6 +127,25 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
             @"DELETE FROM TBTESTE_TBQUESTOES
                 WHERE TESTE_ID = @TESTE_ID AND QUESTAO_ID = @QUESTAO_ID";
 
+        private const string sqlCarregasQuestoesTeste = @"SELECT 
+                Q.ID            QUESTAO_ID, 
+                Q.MATERIA_ID    QUESTAO_MATERIA_ID, 
+                Q.ENUNCIADO     QUESTAO_ENUNCIADO,
+                Q.RESPOSTA      QUESTAO_RESPOSTA
+                
+            FROM 
+                [TBQUESTOES] Q
+
+                INNER JOIN TBTESTE_TBQUESTOES TBT
+                    ON Q.ID = TBT.QUESTAO_ID
+
+               INNER JOIN TBMATERIA M
+                    ON Q.MATERIA_ID = M.MATERIA_ID
+
+            WHERE 
+
+                TBT.TESTE_ID = @TESTE_ID";
+
 
         public void Inserir(Teste novoRegistro, List<Questao> questoesAdicionadas)
         {
@@ -206,11 +225,11 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
 
             //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoSelecionarItens = conexaoComBanco.CreateCommand();
-            comandoSelecionarItens.CommandText = sqlCarregarQuestoes;
+            comandoSelecionarItens.CommandText = sqlCarregasQuestoesTeste;
 
             comandoSelecionarItens.Parameters.AddWithValue("TESTE_ID", teste.id);
-            comandoSelecionarItens.Parameters.AddWithValue("MATERIA_ID", teste.Materia.id);
-            comandoSelecionarItens.Parameters.AddWithValue("DISCIPLINA_ID", teste.Disciplina.id);
+            //comandoSelecionarItens.Parameters.AddWithValue("MATERIA_ID", teste.Materia.id);
+            //comandoSelecionarItens.Parameters.AddWithValue("DISCIPLINA_ID", teste.Disciplina.id);
 
             //executa o comando
             SqlDataReader leitorQuestao = comandoSelecionarItens.ExecuteReader();

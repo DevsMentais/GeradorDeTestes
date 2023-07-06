@@ -62,6 +62,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             }
         }
 
+        public List<Questao> ObterQuestoesSorteadas()
+        {
+            return listBoxSorteadas.Items.Cast<Questao>().ToList();
+        }
+
         private void btnGravar_Click(object sender, EventArgs e)
         {
             Teste teste = ObterTeste();
@@ -99,5 +104,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 quantidade--;
             }
         }
+
     }
 }

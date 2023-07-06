@@ -38,7 +38,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override void Inserir()
         {
-            List<Questao> questoes = repositorioQuestao.SelecionarTodos();
             TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),
                 repositorioDisciplina.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
 
@@ -48,7 +47,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             {
                 Teste teste = telaTestes.ObterTeste();
 
-                repositorioTeste.Inserir(teste, questoes);
+                repositorioTeste.Inserir(teste, telaTestes.ObterQuestoesSorteadas());
             }
             CarregarTestes();
         }

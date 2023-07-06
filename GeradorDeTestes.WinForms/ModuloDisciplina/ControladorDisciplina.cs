@@ -1,7 +1,5 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
-using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.WinForms.Compartilhado;
-using System.Drawing.Drawing2D;
 
 namespace GeradorDeTestes.WinForms.ModuloDisciplina
 {
