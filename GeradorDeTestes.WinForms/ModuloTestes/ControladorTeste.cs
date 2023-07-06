@@ -29,6 +29,12 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override string ToolTipExcluir => "Excluir Teste Existente";
 
+        public override string ToolTipVisualizar => "Visualizar Matérias da Disciplina";
+
+        public override string ToolTipSalvar => "Salvar Teste em PDF";
+
+        public override string ToolTipDuplicar => "Duplicar Teste";
+
         public override void Inserir()
         {
             TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),

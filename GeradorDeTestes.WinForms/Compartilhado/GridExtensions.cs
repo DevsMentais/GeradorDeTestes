@@ -8,7 +8,7 @@
 
             DataGridViewCellStyle linhaEscura = new DataGridViewCellStyle
             {
-                BackColor = Color.AliceBlue,
+                BackColor = Color.Honeydew,
                 Font = font,
                 ForeColor = Color.Black,
                 SelectionBackColor = Color.PowderBlue,

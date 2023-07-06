@@ -23,6 +23,12 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
         public override string ToolTipExcluir => "Excluir Matéria";
 
+        public override bool DuplicarHabilitado => false;
+
+        public override bool SalvarHabilitado => false;
+
+        public override bool VisualizarHabilitado => false;
+
         public override void Inserir()
         {
             TelaMateriaForm telaMateriaForm = new TelaMateriaForm(repositorioDisciplina.SelecionarTodos(), repositorioMateria.SelecionarTodos());

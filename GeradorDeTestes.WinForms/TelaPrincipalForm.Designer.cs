@@ -59,13 +59,13 @@
             // 
             // menuBar
             // 
-            menuBar.BackColor = Color.DarkSeaGreen;
+            menuBar.BackColor = Color.SkyBlue;
             menuBar.ImageScalingSize = new Size(28, 28);
             menuBar.Items.AddRange(new ToolStripItem[] { cadastroMenu });
             menuBar.Location = new Point(0, 0);
             menuBar.Name = "menuBar";
-            menuBar.Padding = new Padding(7, 2, 0, 2);
-            menuBar.Size = new Size(1023, 38);
+            menuBar.Padding = new Padding(4, 1, 0, 1);
+            menuBar.Size = new Size(597, 30);
             menuBar.TabIndex = 0;
             menuBar.Text = "menuStrip1";
             // 
@@ -75,7 +75,7 @@
             cadastroMenu.Image = Properties.Resources.list;
             cadastroMenu.ImageScaling = ToolStripItemImageScaling.None;
             cadastroMenu.Name = "cadastroMenu";
-            cadastroMenu.Size = new Size(146, 34);
+            cadastroMenu.Size = new Size(95, 28);
             cadastroMenu.Text = "Cadastros";
             // 
             // materiaToolStripMenuItem
@@ -84,7 +84,7 @@
             materiaToolStripMenuItem.Image = Properties.Resources.books;
             materiaToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             materiaToolStripMenuItem.Name = "materiaToolStripMenuItem";
-            materiaToolStripMenuItem.Size = new Size(218, 40);
+            materiaToolStripMenuItem.Size = new Size(123, 22);
             materiaToolStripMenuItem.Text = "Matéria";
             // 
             // materiaMenuItem
@@ -92,7 +92,7 @@
             materiaMenuItem.Image = Properties.Resources.study__1_;
             materiaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             materiaMenuItem.Name = "materiaMenuItem";
-            materiaMenuItem.Size = new Size(220, 40);
+            materiaMenuItem.Size = new Size(125, 22);
             materiaMenuItem.Text = "Matéria";
             materiaMenuItem.Click += materiaMenuItem_Click;
             // 
@@ -101,7 +101,7 @@
             disciplinaMenuItem.Image = Properties.Resources.graduation_hat__2_;
             disciplinaMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             disciplinaMenuItem.Name = "disciplinaMenuItem";
-            disciplinaMenuItem.Size = new Size(220, 40);
+            disciplinaMenuItem.Size = new Size(125, 22);
             disciplinaMenuItem.Text = "Disciplina";
             disciplinaMenuItem.Click += disciplinaMenuItem_Click;
             // 
@@ -110,7 +110,7 @@
             questoesMenuItem.Image = Properties.Resources.pencil;
             questoesMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             questoesMenuItem.Name = "questoesMenuItem";
-            questoesMenuItem.Size = new Size(218, 40);
+            questoesMenuItem.Size = new Size(123, 22);
             questoesMenuItem.Text = "Questões";
             questoesMenuItem.Click += questoesMenuItem_Click;
             // 
@@ -119,7 +119,7 @@
             testesMenuItem.Image = Properties.Resources.maths;
             testesMenuItem.ImageScaling = ToolStripItemImageScaling.None;
             testesMenuItem.Name = "testesMenuItem";
-            testesMenuItem.Size = new Size(218, 40);
+            testesMenuItem.Size = new Size(123, 22);
             testesMenuItem.Text = "Testes";
             testesMenuItem.Click += testesMenuItem_Click;
             // 
@@ -128,16 +128,17 @@
             barraFerramentas.BackColor = Color.MintCream;
             barraFerramentas.ImageScalingSize = new Size(28, 28);
             barraFerramentas.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator1, btnDuplicar, toolStripSeparator3, btnVisualizar, toolStripSeparator4, btnSalvar, toolStripSeparator2, lblTipoCadastro });
-            barraFerramentas.Location = new Point(0, 38);
+            barraFerramentas.Location = new Point(0, 30);
             barraFerramentas.Name = "barraFerramentas";
-            barraFerramentas.Padding = new Padding(0, 0, 3, 0);
-            barraFerramentas.Size = new Size(1023, 52);
+            barraFerramentas.Padding = new Padding(0, 0, 2, 0);
+            barraFerramentas.Size = new Size(597, 49);
             barraFerramentas.TabIndex = 1;
             barraFerramentas.Text = "toolStrip1";
             // 
             // btnInserir
             // 
             btnInserir.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnInserir.Enabled = false;
             btnInserir.Image = Properties.Resources._1486485588_add_create_new_math_sign_cross_plus_81186;
             btnInserir.ImageTransparentColor = Color.Magenta;
             btnInserir.Name = "btnInserir";
@@ -149,6 +150,7 @@
             // btnEditar
             // 
             btnEditar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnEditar.Enabled = false;
             btnEditar.Image = Properties.Resources._1486504369_change_edit_options_pencil_settings_tools_write_81307;
             btnEditar.ImageTransparentColor = Color.Magenta;
             btnEditar.Name = "btnEditar";
@@ -160,6 +162,7 @@
             // btnExcluir
             // 
             btnExcluir.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExcluir.Enabled = false;
             btnExcluir.Image = Properties.Resources._1486504346_cancel_close_delete_exit_remove_x_81304;
             btnExcluir.ImageTransparentColor = Color.Magenta;
             btnExcluir.Name = "btnExcluir";
@@ -172,72 +175,71 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Padding = new Padding(7);
-            toolStripSeparator1.Size = new Size(6, 52);
+            toolStripSeparator1.Size = new Size(6, 49);
             // 
             // btnDuplicar
             // 
             btnDuplicar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnDuplicar.Enabled = false;
             btnDuplicar.Image = (Image)resources.GetObject("btnDuplicar.Image");
             btnDuplicar.ImageTransparentColor = Color.Magenta;
             btnDuplicar.Name = "btnDuplicar";
             btnDuplicar.Padding = new Padding(7);
             btnDuplicar.Size = new Size(46, 46);
-            btnDuplicar.Text = "toolStripButton4";
             btnDuplicar.Click += btnDuplicar_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Padding = new Padding(7);
-            toolStripSeparator3.Size = new Size(6, 52);
+            toolStripSeparator3.Size = new Size(6, 49);
             // 
             // btnVisualizar
             // 
             btnVisualizar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnVisualizar.Enabled = false;
             btnVisualizar.Image = Properties.Resources._1486503764_browser_interface_ui_design_layout_website_81271;
             btnVisualizar.ImageTransparentColor = Color.Magenta;
             btnVisualizar.Name = "btnVisualizar";
             btnVisualizar.Padding = new Padding(7);
             btnVisualizar.Size = new Size(46, 46);
-            btnVisualizar.Text = "toolStripButton4";
             btnVisualizar.Click += btnVisualizar_Click;
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Padding = new Padding(7);
-            toolStripSeparator4.Size = new Size(6, 52);
+            toolStripSeparator4.Size = new Size(6, 49);
             // 
             // btnSalvar
             // 
             btnSalvar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnSalvar.Enabled = false;
             btnSalvar.Image = Properties.Resources._1486503760_backup_disk_data_data_storage_floppy_save_81268;
             btnSalvar.ImageTransparentColor = Color.Magenta;
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Padding = new Padding(7);
             btnSalvar.Size = new Size(46, 46);
-            btnSalvar.Text = "toolStripButton4";
             btnSalvar.Click += btnSalvar_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Padding = new Padding(7);
-            toolStripSeparator2.Size = new Size(6, 52);
+            toolStripSeparator2.Size = new Size(6, 49);
             // 
             // lblTipoCadastro
             // 
             lblTipoCadastro.Name = "lblTipoCadastro";
-            lblTipoCadastro.Size = new Size(135, 46);
+            lblTipoCadastro.Size = new Size(77, 46);
             lblTipoCadastro.Text = "TipoCadastro";
             // 
             // panelRegistros
             // 
             panelRegistros.Dock = DockStyle.Fill;
-            panelRegistros.Location = new Point(0, 90);
-            panelRegistros.Margin = new Padding(5, 6, 5, 6);
+            panelRegistros.Location = new Point(0, 79);
             panelRegistros.Name = "panelRegistros";
-            panelRegistros.Size = new Size(1023, 640);
+            panelRegistros.Size = new Size(597, 286);
             panelRegistros.TabIndex = 2;
             // 
             // toolStrip1
@@ -245,10 +247,10 @@
             toolStrip1.Dock = DockStyle.Bottom;
             toolStrip1.ImageScalingSize = new Size(28, 28);
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, lblStatus });
-            toolStrip1.Location = new Point(0, 692);
+            toolStrip1.Location = new Point(0, 330);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Padding = new Padding(0, 0, 3, 0);
-            toolStrip1.Size = new Size(1023, 38);
+            toolStrip1.Padding = new Padding(0, 0, 2, 0);
+            toolStrip1.Size = new Size(597, 35);
             toolStrip1.TabIndex = 3;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -258,26 +260,26 @@
             toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
             toolStripButton1.ImageTransparentColor = Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(40, 32);
+            toolStripButton1.Size = new Size(32, 32);
             toolStripButton1.Text = "toolStripButton1";
             // 
             // lblStatus
             // 
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(339, 32);
+            lblStatus.Size = new Size(192, 32);
             lblStatus.Text = "Bem-vindo(a) ao Gerador De Testes";
             // 
             // TelaPrincipalForm
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1023, 730);
+            ClientSize = new Size(597, 365);
             Controls.Add(toolStrip1);
             Controls.Add(panelRegistros);
             Controls.Add(barraFerramentas);
             Controls.Add(menuBar);
             MainMenuStrip = menuBar;
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(2);
             Name = "TelaPrincipalForm";
             ShowIcon = false;
             Text = "Gerador de Testes";

@@ -1,11 +1,7 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
-using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
-using GeradorDeTestes.WinForms.ModuloMateria;
-using System.Drawing.Drawing2D;
-using System.Linq.Expressions;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
@@ -14,8 +10,8 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         private IRepositorioQuestao repositorioQuestao;
         private TabelaQuestaoControl tabelaQuestao;
         private IRepositorioMateria repositorioMateria;
-              
-        
+
+
         public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria)
         {
             this.repositorioQuestao = repositorioQuestao;
@@ -27,6 +23,12 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         public override string ToolTipEditar => "Editar Questão Existente";
 
         public override string ToolTipExcluir => "Excluir Questão";
+
+        public override bool DuplicarHabilitado => false;
+
+        public override bool SalvarHabilitado => false;
+
+        public override bool VisualizarHabilitado => false;
 
         public override void ApresentarMensagem(string mensagem, string titulo)
         {
@@ -44,14 +46,14 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 Questao questao = telaQuestaoForm.ObterQuestao();
 
-                if(questao == null)
+                if (questao == null)
                 {
                     TelaPrincipalForm.Instancia.AtualizarRodape("É necessário adicionar uma alternativa");
                     telaQuestaoForm.ShowDialog();
                     return;
                 }
 
-                if(questao.RespostaCerta == "erro")
+                if (questao.RespostaCerta == "erro")
                 {
                     TelaPrincipalForm.Instancia.AtualizarRodape("É necessário marcar uma alternativa");
                     telaQuestaoForm.ShowDialog();
@@ -64,7 +66,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             CarregarQuestoes();
         }
 
-    
+
         public override void Editar()
         {
             TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
@@ -116,19 +118,14 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                if (opcaoEscolhida == DialogResult.OK)
+                try
                 {
-                    try
-                    {
-                        repositorioQuestao.Excluir(questaoSelecionada);
-                    }
-                    catch (Microsoft.Data.SqlClient.SqlException)
-                    {
-                        ApresentarMensagem("Não é possível excluir a questão pois ela possui um teste!", "Exclusão de Questões");
-                    }
+                    repositorioQuestao.Excluir(questaoSelecionada);
                 }
-
-                repositorioQuestao.Excluir(questaoSelecionada);
+                catch (Microsoft.Data.SqlClient.SqlException)
+                {
+                    ApresentarMensagem("Não é possível excluir a questão pois ela possui um teste!", "Exclusão de Questões");
+                }
             }
 
             CarregarQuestoes();

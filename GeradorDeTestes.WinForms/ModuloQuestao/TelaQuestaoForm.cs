@@ -3,6 +3,7 @@ using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
@@ -10,6 +11,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
     {
         private Questao questao;
         List<Questao> questoes;
+        private int alternativaCount = 0;
 
         public TelaQuestaoForm(List<Materia> materias, List<Questao> questoes)
         {
@@ -111,7 +113,12 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 return;
             }
 
+            alternativa.Resposta = $"({ObterLetraAlternativa()}) {txtResposta.Text}";
+
+            alternativaCount++;
+
             chListAlternativas.Items.Add(alternativa);
+            txtResposta.Text = string.Empty;
         }
 
         private void btnRemover_Click(object sender, EventArgs e)
@@ -143,6 +150,13 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         {
             return chListAlternativas.Items.Cast<Alternativa>()
                 .Except(ObterAlternativasMarcadas()).ToList();
+        }
+
+        private char ObterLetraAlternativa()
+        {
+            int letraAscii = 65 + alternativaCount;
+
+            return (char)letraAscii;
         }
 
         private void btnGravar_Click(object sender, EventArgs e)

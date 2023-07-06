@@ -23,6 +23,10 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
         public override string ToolTipVisualizar => "Visualizar Matérias da Disciplina";
 
+        public override bool DuplicarHabilitado => false;
+
+        public override bool SalvarHabilitado => false;
+
         public override void Inserir()
         {
             TelaDisciplinaForm telaDisciplina = new TelaDisciplinaForm(repositorioDisciplina.SelecionarTodos());
@@ -90,12 +94,6 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                if (disciplina.ListMaterias.Count > 0)
-                {
-                    MessageBox.Show("Exclusão inválida, disciplina possui materiais");
-                    return;
-                }
-
                 try
                 {
                     repositorioDisciplina.Excluir(disciplina);
