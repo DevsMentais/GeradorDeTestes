@@ -280,27 +280,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             conexaoComBanco.Close();
         }
 
-        private void RemoverAlternativa(Alternativa alternativa, Questao questao)
-        {
-            //obter a conexão com o banco e abrir ela
-            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
-            conexaoComBanco.Open();
-
-            //cria um comando e relaciona com a conexão aberta
-            SqlCommand comandoInserir = conexaoComBanco.CreateCommand();
-            comandoInserir.CommandText = sqlRemoverAlternativas;
-
-            //adiciona os parâmetros no comando
-            comandoInserir.Parameters.AddWithValue("ALTERNATIVA_ID", alternativa.id);
-            comandoInserir.Parameters.AddWithValue("QUESTAO_ID", questao.id);
-
-            //executa o comando
-            comandoInserir.ExecuteNonQuery();
-
-            //fecha conexão
-            conexaoComBanco.Close();
-        }
-
         private void CarregarAlternativas(Questao questao)
         {
             //obter a conexão com o banco e abrir ela

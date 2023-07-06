@@ -1,5 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
@@ -7,8 +8,12 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 {
     public partial class TelaTesteForm : Form
     {
-        public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas)
+        private List<Questao> questoes;
+
+        public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes)
         {
+            this.questoes = questoes;
+
             InitializeComponent();
             this.ConfigurarDialog();
 
@@ -75,6 +80,23 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
 
                 DialogResult = DialogResult.None;
+            }
+        }
+
+        private void btnSortear_Click(object sender, EventArgs e)
+        {
+            int quantidade = (int)numQtdQuestoes.Value;
+            Random random = new Random();
+
+            listBoxSorteadas.Items.Clear();
+
+            while (quantidade > 0)
+            {
+                int indiceSorteado = random.Next(questoes.Count);
+                Questao questaoSorteada = questoes[indiceSorteado];
+
+                listBoxSorteadas.Items.Add(questaoSorteada);
+                quantidade--;
             }
         }
     }

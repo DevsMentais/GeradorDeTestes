@@ -8,6 +8,9 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
         public TabelaTesteControl()
         {
             InitializeComponent();
+
+            ConfigurarColunas();
+
             grid.ConfigurarGridZebrado();
 
             grid.ConfigurarGridSomenteLeitura();
@@ -41,6 +44,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 {
                     Name = "quantidade",
                     HeaderText = "Quantidade de Questoes"
+                },
+                new DataGridViewTextBoxColumn()
+                {
+                    Name = "provaRecuperacao",
+                    HeaderText = "Prova de Recuperação"
                 }
             };
 
@@ -53,7 +61,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             foreach (Teste teste in testes)
             {
-                grid.Rows.Add(teste.id, teste.Titulo, teste.Disciplina, teste.Materia, teste.QuantidadeQuestoes);
+                grid.Rows.Add(teste.id, teste.Titulo, teste.Disciplina, teste.Materia, teste.QuantidadeQuestoes, teste.ProvaRecuperacao);
             }
         }
 

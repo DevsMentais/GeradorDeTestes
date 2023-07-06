@@ -6,7 +6,9 @@
     [QuantidadeQuestoes] INT           NOT NULL,
     [ProvaRecuperacao]   BIT           NOT NULL,
     CONSTRAINT [PK_TBTeste] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TBTeste_TBDisciplina] FOREIGN KEY ([Materia_Id]) REFERENCES [dbo].[TBDisciplina] ([Id]),
+    CONSTRAINT [FK_TBTeste_TBDisciplina] FOREIGN KEY ([Disciplina_Id]) REFERENCES [dbo].[TBDisciplina] ([Id]),
     CONSTRAINT [FK_TBTeste_TBMateria] FOREIGN KEY ([Materia_Id]) REFERENCES [dbo].[TBMateria] ([Id])
 );
+
+
 

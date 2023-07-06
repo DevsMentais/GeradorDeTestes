@@ -12,13 +12,15 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
         private IRepositorioTeste repositorioTeste;
         private IRepositorioDisciplina repositorioDisciplina;
         private IRepositorioMateria repositorioMateria;
+        private IRepositorioQuestao repositorioQuestao;
         private TabelaTesteControl tabelaTeste;
 
-        public ControladorTeste(IRepositorioTeste repositorioTeste, IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria)
+        public ControladorTeste(IRepositorioTeste repositorioTeste, IRepositorioDisciplina repositorioDisciplina, IRepositorioMateria repositorioMateria, IRepositorioQuestao repositorioQuestao)
         {
             this.repositorioTeste = repositorioTeste;
             this.repositorioDisciplina = repositorioDisciplina;
             this.repositorioMateria = repositorioMateria;
+            this.repositorioQuestao = repositorioQuestao;
         }
 
         public override string ToolTipInserir => "Inserir Novo Teste";
@@ -29,7 +31,8 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override void Inserir()
         {
-            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos());
+            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),
+                repositorioDisciplina.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
 
             DialogResult opcaoEscolhida = telaTestes.ShowDialog();
 
@@ -54,7 +57,8 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 return;
             }
 
-            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos());
+            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),
+                repositorioDisciplina.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
             telaTestes.Text = "Editar teste existente";
 
             telaTestes.ConfigurarTela(testeSelecionado);

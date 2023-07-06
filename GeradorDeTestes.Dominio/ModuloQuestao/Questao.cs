@@ -63,9 +63,9 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
             return false;
         }
 
-        public void RemoverAlternativa(Alternativa alternaticaParaRemover)
+        public override string ToString()
         {
-            ListAlternativas.Remove(alternaticaParaRemover);
+            return Enunciado;
         }
     }
 }

@@ -1,5 +1,9 @@
-﻿using GeradorDeTestes.Dominio.ModuloTestes;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.Infra.Dados.Sql.Compartilhado;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using Microsoft.Data.SqlClient;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
@@ -18,7 +22,16 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
 
         public override Teste ConverterRegistro(SqlDataReader leitorRegistros)
         {
-            throw new NotImplementedException();
+            int id = Convert.ToInt32(leitorRegistros["TESTE_ID"]);
+            string titulo = Convert.ToString(leitorRegistros["TESTE_TITULO"]);
+            int quantidadeQuestoes = Convert.ToInt32(leitorRegistros["TESTE_QUANTIDADEQUESTOES"]);
+            bool provaRecuperacao = Convert.ToBoolean(leitorRegistros["TESTE_PROVARECUPERACAO"]);
+
+            Disciplina disciplina = new MapeadorDisciplina().ConverterRegistro(leitorRegistros);
+
+            Materia materia = new MapeadorMateria().ConverterRegistro(leitorRegistros);
+
+            return new Teste(id,titulo,disciplina,materia,quantidadeQuestoes,provaRecuperacao);
         }
     }
 }
