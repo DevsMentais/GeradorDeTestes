@@ -2,9 +2,6 @@
 using GeradorDeTestes.WinForms.Compartilhado;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Drawing.Printing;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
 using Document = iTextSharp.text.Document;
 
 namespace GeradorDeTestes.WinForms.ModuloTestes

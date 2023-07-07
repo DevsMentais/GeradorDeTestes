@@ -55,7 +55,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 questao.AdicionarAlternativa(alternativa);
             }
 
-            foreach (Alternativa alternativaMarcada in ObterAlternativasMarcadas())
+            foreach (Alternativa alternativaMarcada in ObterAlternativas())
             {
                 Alternativa alternativa = new Alternativa(questao, respostaCerta, true);
                 alternativa.Correta = true;
@@ -139,15 +139,15 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             }
         }
 
-        public List<Alternativa> ObterAlternativasMarcadas()
+        public List<Alternativa> ObterAlternativas()
         {
-            return chListAlternativas.CheckedItems.Cast<Alternativa>().ToList();
+            return chListAlternativas.Items.Cast<Alternativa>().ToList();
         }
 
         public List<Alternativa> ObterAlternativasDesmarcadas()
         {
             return chListAlternativas.Items.Cast<Alternativa>()
-                .Except(ObterAlternativasMarcadas()).ToList();
+                .Except(ObterAlternativas()).ToList();
         }
 
         private char ObterLetraAlternativa()

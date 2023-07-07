@@ -59,7 +59,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                     return;
                 }
 
-                repositorioQuestao.Inserir(questao, questao.ListAlternativas);
+                repositorioQuestao.Inserir(questao, telaQuestaoForm.ObterAlternativas());
             }
 
             CarregarQuestoes();
@@ -79,11 +79,11 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 Questao questao = telaQuestaoForm.ObterQuestao();
 
-                List<Alternativa> alternativasMarcadas = telaQuestaoForm.ObterAlternativasMarcadas();
+                List<Alternativa> alternativasMarcadas = telaQuestaoForm.ObterAlternativas();
 
                 List<Alternativa> alternativasDesmarcadas = telaQuestaoForm.ObterAlternativasDesmarcadas();
 
-                repositorioQuestao.Editar(questao.id, questao, alternativasMarcadas, alternativasDesmarcadas);
+                repositorioQuestao.Editar(questao.id, questao, alternativasMarcadas);
 
             }
 
@@ -97,17 +97,19 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a questão {questaoSelecionada.id}?", "Exclusão de Matérias",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (opcaoEscolhida == DialogResult.OK)
-            {
-                try
-                {
-                    repositorioQuestao.Excluir(questaoSelecionada);
-                }
-                catch (Microsoft.Data.SqlClient.SqlException)
-                {
-                    ApresentarMensagem("Não é possível excluir a questão pois ela possui um teste!", "Exclusão de Questões");
-                }
-            }
+            repositorioQuestao.Excluir(questaoSelecionada);
+
+            //if (opcaoEscolhida == DialogResult.OK)
+            //{
+            //    try
+            //    {
+            //        repositorioQuestao.Excluir(questaoSelecionada);
+            //    }
+            //    catch (Microsoft.Data.SqlClient.SqlException)
+            //    {
+            //        ApresentarMensagem("Não é possível excluir a questão pois ela possui um teste!", "Exclusão de Questões");
+            //    }
+            //}
 
             CarregarQuestoes();
         }

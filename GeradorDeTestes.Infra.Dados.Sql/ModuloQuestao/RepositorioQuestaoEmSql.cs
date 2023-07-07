@@ -119,7 +119,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 
         private const string sqlRemoverAlternativas =
             @"DELETE FROM TBALTERNATIVA 
-                WHERE QUESTAO_ID = @QUESTAO_ID AND ALTERNATIVA_ID = @ALTERNATIVA_ID";
+                WHERE QUESTAO_ID = @QUESTAO_ID";
 
         public void Inserir(Questao questao, List<Alternativa> alternativasAdicionadas)
         {
@@ -144,27 +144,15 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             }
         }
 
-        public void Editar(int id, Questao questao, List<Alternativa> alternativasMarcadas, List<Alternativa> AlternativasDesmarcadas)
+        public void Editar(int id, Questao questao, List<Alternativa> alternativas)
         {
-            foreach (Alternativa alternativaParaAdicionar in alternativasMarcadas)
+            foreach (Alternativa alternativaParaAdicionar in alternativas)
             {
                 if (questao.Contem(alternativaParaAdicionar))
                     continue;
-
                 AdicionarAlternativa(alternativaParaAdicionar, questao);
                 questao.AdicionarAlternativa(alternativaParaAdicionar);
             }
-
-
-            foreach (Alternativa alternativaParaAdicionar in AlternativasDesmarcadas)
-            {
-                if (questao.Contem(alternativaParaAdicionar))
-                {
-                    AdicionarAlternativa(alternativaParaAdicionar, questao);
-                    questao.AdicionarAlternativa(alternativaParaAdicionar);
-                }
-            }
-
 
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();

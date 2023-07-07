@@ -106,18 +106,72 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
         private void btnSortear_Click(object sender, EventArgs e)
         {
             int quantidade = (int)numQtdQuestoes.Value;
+
+            if (cbMateria.SelectedItem != null)
+            {
+                if (quantidade > 0)
+                {
+                    Materia materiaSelecionada = (Materia)cbMateria.SelectedItem;
+
+                    if (questoes.Count >= quantidade)
+                    {
+                        List<Questao> questoesSorteadas = SortearQuestoes(questoes, quantidade);
+
+                        questoesSorteadas.ForEach(q => listBoxSorteadas.Items.Add(q));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não há questões suficientes para a quantidade solicitada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Digite uma quantidade válida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma matéria!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            btnSortear.Enabled = false;
+        }
+
+        private List<Questao> SortearQuestoes(List<Questao> questoesDisponiveis, int quantidade)
+        {
+            List<Questao> questoesSorteadas = new List<Questao>();
+
             Random random = new Random();
 
-            listBoxSorteadas.Items.Clear();
-
-            while (quantidade > 0)
+            for (int i = 0; i < quantidade; i++)
             {
-                int indiceSorteado = random.Next(questoes.Count);
-                Questao questaoSorteada = questoes[indiceSorteado];
-
-                listBoxSorteadas.Items.Add(questaoSorteada);
-                quantidade--;
+                int index = random.Next(questoesDisponiveis.Count);
+                questoesSorteadas.Add(questoesDisponiveis[index]);
+                questoesDisponiveis.RemoveAt(index);
             }
+
+            return questoesSorteadas;
+        }
+
+        private void cbDisciplina_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbMateria.Items.Clear();
+
+            if (cbDisciplina.SelectedItem != null)
+            {
+                Disciplina disciplinaSelecionada = (Disciplina)cbDisciplina.SelectedItem;
+
+                List<Materia> materiasRelacionadas = ObterMateriasPorDisciplina(disciplinaSelecionada);
+
+                cbMateria.Items.AddRange(materiasRelacionadas.ToArray());
+            }
+        }
+
+        private List<Materia> ObterMateriasPorDisciplina(Disciplina disciplinaSelecionada)
+        {
+            return disciplinaSelecionada.ListMaterias;
         }
     }
 }
