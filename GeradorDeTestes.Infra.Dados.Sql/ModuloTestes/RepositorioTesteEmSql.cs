@@ -128,10 +128,20 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                 WHERE TESTE_ID = @TESTE_ID AND QUESTAO_ID = @QUESTAO_ID";
 
         private const string sqlCarregasQuestoesTeste = @"SELECT 
-                Q.ID            QUESTAO_ID, 
-                Q.MATERIA_ID    QUESTAO_MATERIA_ID, 
-                Q.ENUNCIADO     QUESTAO_ENUNCIADO,
-                Q.RESPOSTA      QUESTAO_RESPOSTA
+                Q.ID                QUESTAO_ID, 
+                Q.MATERIA_ID        QUESTAO_MATERIA_ID, 
+                Q.ENUNCIADO         QUESTAO_ENUNCIADO,
+                Q.RESPOSTA          QUESTAO_RESPOSTA,
+
+                TBT.TESTE_ID        TESTE_ID,
+                
+                M.ID                MATERIA_ID,
+                M.NOME              MATERIA_NOME,
+                M.DISCIPLINA_ID     DISCIPLINA_ID,
+                M.SERIE             MATERIA_SERIE,
+
+                D.ID             DISCIPLINA_ID,
+                D.NOME           DISCIPLINA_NOME
                 
             FROM 
                 [TBQUESTOES] Q
@@ -139,8 +149,11 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                 INNER JOIN TBTESTE_TBQUESTOES TBT
                     ON Q.ID = TBT.QUESTAO_ID
 
-               INNER JOIN TBMATERIA M
-                    ON Q.MATERIA_ID = M.MATERIA_ID
+                INNER JOIN TBMATERIA M
+                    ON Q.MATERIA_ID = M.ID
+    
+                INNER JOIN TBDISCIPLINA D
+                    ON M.DISCIPLINA_ID = D.ID
 
             WHERE 
 
@@ -178,60 +191,47 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                 RemoverQuestao(QuestaoParaRemover, registroSelecionado);
             }
 
-            //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
-            //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoExcluir = conexaoComBanco.CreateCommand();
             comandoExcluir.CommandText = sqlExcluir;
 
-            //adiciona os parâmetros no comando
             comandoExcluir.Parameters.AddWithValue("ID", registroSelecionado.id);
 
-            //executa o comando
             comandoExcluir.ExecuteNonQuery();
 
-            //encerra a conexão
             conexaoComBanco.Close();
         }
 
         private void AdicionarQuestao(Questao questao, Teste teste)
         {
-            //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
-            //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoInserir = conexaoComBanco.CreateCommand();
             comandoInserir.CommandText = sqlAdicionarQuestao;
 
-            //adiciona os parâmetros no comando
             comandoInserir.Parameters.AddWithValue("QUESTAO_ID", questao.id);
             comandoInserir.Parameters.AddWithValue("TESTE_ID", teste.id);
 
-            //executa o comando
             comandoInserir.ExecuteNonQuery();
 
-            //fecha conexão
             conexaoComBanco.Close();
         }
 
         public void CarregarQuestoes(Teste teste)
         {
-            //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
-            //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoSelecionarItens = conexaoComBanco.CreateCommand();
             comandoSelecionarItens.CommandText = sqlCarregasQuestoesTeste;
 
             comandoSelecionarItens.Parameters.AddWithValue("TESTE_ID", teste.id);
-            //comandoSelecionarItens.Parameters.AddWithValue("MATERIA_ID", teste.Materia.id);
-            //comandoSelecionarItens.Parameters.AddWithValue("DISCIPLINA_ID", teste.Disciplina.id);
+            comandoSelecionarItens.Parameters.AddWithValue("MATERIA_ID", teste.Materia.id);
+            comandoSelecionarItens.Parameters.AddWithValue("DISCIPLINA_ID", teste.Disciplina.id);
 
-            //executa o comando
             SqlDataReader leitorQuestao = comandoSelecionarItens.ExecuteReader();
 
             while (leitorQuestao.Read())
@@ -243,28 +243,22 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                 teste.AdicionarQuestao(questao);
             }
 
-            //encerra a conexão
             conexaoComBanco.Close();
         }
 
         private void RemoverQuestao(Questao questao, Teste teste)
         {
-            //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
-            //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoInserir = conexaoComBanco.CreateCommand();
             comandoInserir.CommandText = sqlRemoverQuestoes;
 
-            //adiciona os parâmetros no comando
             comandoInserir.Parameters.AddWithValue("TESTE_ID", teste.id);
             comandoInserir.Parameters.AddWithValue("QUESTAO_ID", questao.id);
 
-            //executa o comando
             comandoInserir.ExecuteNonQuery();
 
-            //fecha conexão
             conexaoComBanco.Close();
         }
 

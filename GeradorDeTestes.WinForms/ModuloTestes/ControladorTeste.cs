@@ -38,8 +38,8 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override void Inserir()
         {
-            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),
-                repositorioDisciplina.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
+            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos(),
+                repositorioQuestao.SelecionarTodos(), repositorioTeste.SelecionarTodos());
 
             DialogResult opcaoEscolhida = telaTestes.ShowDialog();
 
@@ -64,8 +64,9 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 return;
             }
 
-            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(),
-                repositorioDisciplina.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
+            TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos(), 
+                repositorioQuestao.SelecionarTodos(), repositorioTeste.SelecionarTodos());
+
             telaTestes.Text = "Editar teste existente";
 
             telaTestes.ConfigurarTela(testeSelecionado);

@@ -93,18 +93,15 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 
         public void CarregarMateriasDisciplina(Materia materia)
         {
-            //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
-            //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoSelecionarMaterias = conexaoComBanco.CreateCommand();
             comandoSelecionarMaterias.CommandText = sqlAdicionarMateriaNaDisciplina;
 
             comandoSelecionarMaterias.Parameters.AddWithValue("DISCIPLINA_ID", materia.Disciplina.id);
             comandoSelecionarMaterias.Parameters.AddWithValue("MATERIA_ID", materia.id);
 
-            //executa o comando
             SqlDataReader leitorMateria = comandoSelecionarMaterias.ExecuteReader();
 
             while (leitorMateria.Read())
@@ -115,9 +112,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 
                 materia.Disciplina.ListMaterias.Add(materia);
             }
-            
 
-            //encerra a conexão
             conexaoComBanco.Close();
         }
 

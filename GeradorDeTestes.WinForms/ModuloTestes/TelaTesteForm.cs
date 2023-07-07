@@ -9,16 +9,19 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
     public partial class TelaTesteForm : Form
     {
         private List<Questao> questoes;
+        private List<Teste> testes;
 
-        public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes)
+        public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes, List<Teste> testes)
         {
             this.questoes = questoes;
+            this.testes = testes;   
 
             InitializeComponent();
             this.ConfigurarDialog();
 
             ConfigurarComboBoxDisciplina(disciplinas);
             ConfigurarComboBoxMateria(materias);
+            this.testes = testes;
         }
 
         public Teste ObterTeste()
@@ -85,6 +88,16 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
 
                 DialogResult = DialogResult.None;
+            }
+
+            foreach (Teste t in testes)
+            {
+                if (teste.Titulo == t.Titulo && txtId.Text == "0")
+                {
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+
+                    DialogResult = DialogResult.None;
+                }
             }
         }
 

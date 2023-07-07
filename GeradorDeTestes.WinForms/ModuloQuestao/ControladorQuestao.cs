@@ -85,15 +85,15 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
                 List<Alternativa> alternativasDesmarcadas = telaQuestaoForm.ObterAlternativasDesmarcadas();
 
-                foreach (Questao q in repositorioQuestao.SelecionarTodos())
-                {
-                    if (questao.Enunciado == q.Enunciado)
-                    {
-                        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
-                        telaQuestaoForm.ShowDialog();
-                        return;
-                    }
-                }
+                //foreach (Questao q in repositorioQuestao.SelecionarTodos())
+                //{
+                //    if (questao.Enunciado == q.Enunciado)
+                //    {
+                //        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
+                //        telaQuestaoForm.ShowDialog();
+                //        return;
+                //    }
+                //}
 
                 repositorioQuestao.Editar(questao.id, questao, alternativasMarcadas, alternativasDesmarcadas);
 
