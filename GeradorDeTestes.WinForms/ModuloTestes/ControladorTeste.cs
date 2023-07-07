@@ -36,6 +36,8 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override string ToolTipDuplicar => "Duplicar Teste";
 
+        public override bool EditarHabilitado => false;
+
         public override void Inserir()
         {
             TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos(),

@@ -60,16 +60,6 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             {
                 Disciplina disciplina = telaDisciplina.ObterDisciplina();
 
-                foreach (Disciplina d in repositorioDisciplina.SelecionarTodos())
-                {
-                    if (disciplina.Nome == d.Nome)
-                    {
-                        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
-                        telaDisciplina.ShowDialog();
-                        return;
-                    }
-                }
-
                 repositorioDisciplina.Editar(disciplina.id, disciplina);
 
                 CarregarDisciplina();
@@ -103,25 +93,6 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             }
 
             CarregarDisciplina();
-        }
-
-        public override void Visualizar()
-        {
-            Disciplina disciplina = ObterDisciplinaSelecionada();
-
-            TelaVisualizarMateriasForm telaListagem = new TelaVisualizarMateriasForm();
-
-            if (disciplina == null)
-            {
-                ApresentarMensagem("Selecione uma disciplina primeiro!", "Listagem de disciplina");
-                return;
-            }
-
-            telaListagem.CarregarLabel(disciplina);
-
-            telaListagem.CarregarLista(disciplina.ListMaterias);
-
-            telaListagem.ShowDialog();
         }
 
         private Disciplina ObterDisciplinaSelecionada()

@@ -55,7 +55,7 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
             foreach (Disciplina d in disciplinas)
             {
-                if (disciplina.Nome == d.Nome && txtId.Text == "0")
+                if (disciplina.Nome == d.Nome)
                 {
                     TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
 

@@ -126,20 +126,16 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
 
-            //cria um comando e relaciona com a conexão aberta
             SqlCommand comandoInserir = conexaoComBanco.CreateCommand();
             comandoInserir.CommandText = sqlInserir;
 
-            //adiciona os parâmetros no comando
             MapeadorQuestao mapeador = new MapeadorQuestao();
             mapeador.ConfigurarParametros(comandoInserir, questao);
 
-            //executa o comando
             object id = comandoInserir.ExecuteScalar();
 
             questao.id = Convert.ToInt32(id);
 
-            //encerra a conexão
             conexaoComBanco.Close();
 
             foreach (Alternativa alternativa in alternativasAdicionadas)

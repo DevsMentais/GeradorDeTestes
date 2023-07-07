@@ -2,8 +2,6 @@
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
 {
@@ -181,7 +179,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             foreach (Questao q in questoes)
             {
-                if (questao.Enunciado == q.Enunciado && txtId.Text == "0")
+                if (questao.Enunciado == q.Enunciado)
                 {
                     TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
 
