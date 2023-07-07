@@ -25,6 +25,12 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
         public override bool SalvarHabilitado => false;
 
+
+        public override void ApresentarMensagem(string mensagem, string titulo)
+        {
+            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
         public override void Inserir()
         {
             TelaDisciplinaForm telaDisciplina = new TelaDisciplinaForm(repositorioDisciplina.SelecionarTodos());
@@ -102,6 +108,11 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             return repositorioDisciplina.SelecionarPorId(id);
         }
 
+        public override string ObterTipoCadastro()
+        {
+            return "Cadastro de Disciplina";
+        }
+
         private void CarregarDisciplina()
         {
             List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
@@ -117,16 +128,6 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
             CarregarDisciplina();
 
             return tabelaDisciplina;
-        }
-
-        public override string ObterTipoCadastro()
-        {
-            return "Cadastro de Disciplina";
-        }
-
-        public override void ApresentarMensagem(string mensagem, string titulo)
-        {
-            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
     }

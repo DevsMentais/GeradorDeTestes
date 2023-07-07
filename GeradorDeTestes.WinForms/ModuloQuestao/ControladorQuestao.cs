@@ -35,7 +35,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-
         public override void Inserir()
         {
             TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
@@ -66,7 +65,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             CarregarQuestoes();
         }
 
-
         public override void Editar()
         {
             TelaQuestaoForm telaQuestaoForm = new TelaQuestaoForm(repositorioMateria.SelecionarTodos(), repositorioQuestao.SelecionarTodos());
@@ -92,13 +90,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             CarregarQuestoes();
         }
 
-        private Questao ObterQuestaoSelecionada()
-        {
-            int id = tabelaQuestao.ObterIdSelecionado();
-
-            return repositorioQuestao.SelecionarPorId(id);
-        }
-
         public override void Excluir()
         {
             Questao questaoSelecionada = ObterQuestaoSelecionada();
@@ -120,7 +111,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             CarregarQuestoes();
         }
-
 
         public override UserControl ObterListagem()
         {
@@ -144,5 +134,13 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             tabelaQuestao.AtualizarRegistros(questoes);
         }
+
+        private Questao ObterQuestaoSelecionada()
+        {
+            int id = tabelaQuestao.ObterIdSelecionado();
+
+            return repositorioQuestao.SelecionarPorId(id);
+        }
+
     }
 }

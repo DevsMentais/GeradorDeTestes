@@ -11,7 +11,7 @@
                 BackColor = Color.Honeydew,
                 Font = font,
                 ForeColor = Color.Black,
-                SelectionBackColor = Color.Honeydew,
+                SelectionBackColor = Color.CadetBlue,
                 SelectionForeColor = Color.Black
             };
 
@@ -21,7 +21,7 @@
             {
                 BackColor = Color.PowderBlue,
                 Font = font,
-                SelectionBackColor = Color.PowderBlue,
+                SelectionBackColor = Color.CadetBlue,
                 SelectionForeColor = Color.Black
             };
 

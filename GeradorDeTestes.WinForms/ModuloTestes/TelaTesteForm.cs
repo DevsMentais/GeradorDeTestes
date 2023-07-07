@@ -14,7 +14,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
         public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes, List<Teste> testes)
         {
             this.questoes = questoes;
-            this.testes = testes;   
+            this.testes = testes;
 
             InitializeComponent();
             this.ConfigurarDialog();
@@ -92,12 +92,14 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             foreach (Teste t in testes)
             {
-                if (teste.Titulo == t.Titulo && txtId.Text == "0")
+                if (teste.Titulo == t.Titulo)
                 {
                     TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
 
                     DialogResult = DialogResult.None;
                 }
+
+
             }
         }
 

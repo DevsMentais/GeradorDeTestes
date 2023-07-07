@@ -29,6 +29,12 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
         public override bool VisualizarHabilitado => false;
 
+
+        public override void ApresentarMensagem(string mensagem, string titulo)
+        {
+            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
         public override void Inserir()
         {
             TelaMateriaForm telaMateriaForm = new TelaMateriaForm(repositorioDisciplina.SelecionarTodos(), repositorioMateria.SelecionarTodos());
@@ -61,22 +67,11 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             {
                 Materia materia = telaMateriaForm.ObterMateria();
 
-                foreach (Materia m in repositorioMateria.SelecionarTodos())
-                {
-                    if (materia.Nome == m.Nome)
-                    {
-                        TelaPrincipalForm.Instancia.AtualizarRodape("O nome já está em uso");
-                        telaMateriaForm.ShowDialog();
-                        return;
-                    }
-                }
-
                 repositorioMateria.Editar(materia.id, materia);
             }
 
             CarregarMaterias();
         }
-
         
         public override void Excluir()
         {
@@ -100,18 +95,6 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             CarregarMaterias();
         }
 
-        private void CarregarMaterias()
-        {
-            List<Materia> materias = repositorioMateria.SelecionarTodos();
-
-            tabelaMateria.AtualizarRegistros(materias);
-        }
-
-        public override void ApresentarMensagem(string mensagem, string titulo)
-        {
-            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
         public override UserControl ObterListagem()
         {
             if(tabelaMateria == null)
@@ -122,6 +105,18 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             return tabelaMateria;
         }
 
+        public override string ObterTipoCadastro()
+        {
+            return "Cadastro de Matérias";
+        }
+
+        private void CarregarMaterias()
+        {
+            List<Materia> materias = repositorioMateria.SelecionarTodos();
+
+            tabelaMateria.AtualizarRegistros(materias);
+        }
+
         private Materia ObterMateriaSelecionada()
         {
             int id = tabelaMateria.ObterIdSelecionado();
@@ -129,9 +124,5 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             return repositorioMateria.SelecionarPorId(id); 
         }
 
-        public override string ObterTipoCadastro()
-        {
-            return "Cadastro de Matérias";
-        }
     }
 }

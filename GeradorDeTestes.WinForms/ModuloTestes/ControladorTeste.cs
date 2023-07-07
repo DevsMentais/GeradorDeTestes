@@ -38,6 +38,12 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override bool EditarHabilitado => false;
 
+
+        public override void ApresentarMensagem(string mensagem, string titulo)
+        {
+            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
         public override void Inserir()
         {
             TelaTesteForm telaTestes = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos(),
@@ -53,7 +59,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             }
             CarregarTestes();
         }
-
 
         public override void Editar()
         {
@@ -128,19 +133,48 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             telaListagem.ShowDialog();
         }
 
-        private Teste ObterTesteSelecionado()
+        public override void Duplicar()
         {
-            int id = tabelaTeste.ObterIdSelecionado();
+            Teste testeSelecionado = ObterTesteSelecionado();
 
-            return repositorioTeste.SelecionarPorId(id);
+            if (testeSelecionado == null)
+            {
+                MessageBox.Show("Selecione um teste primeiro!", "Duplicar teste", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TelaTesteForm telaTeste = new TelaTesteForm(repositorioMateria.SelecionarTodos(), repositorioDisciplina.SelecionarTodos(),
+                repositorioQuestao.SelecionarTodos(), repositorioTeste.SelecionarTodos());
+
+            telaTeste.Text = "Duplicar teste existente";
+
+            telaTeste.ConfigurarTela(testeSelecionado);
+
+            DialogResult opcaoEscolhida = telaTeste.ShowDialog();
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                Teste teste = telaTeste.ObterTeste();
+                repositorioTeste.Inserir(teste);
+            }
+
+            CarregarTestes();
         }
 
-
-        private void CarregarTestes()
+        public override void Salvar()
         {
-            List<Teste> listaTestes = repositorioTeste.SelecionarTodos();
+            Teste testeSelecionado = ObterTesteSelecionado();
 
-            tabelaTeste.AtualizarRegistros(listaTestes);
+            if (testeSelecionado == null)
+            {
+                MessageBox.Show("Selecione um teste primeiro!", "Gerar PDF do teste", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            TelaGerarPdfForm telaEscolha = new TelaGerarPdfForm(testeSelecionado);
+            telaEscolha.Text = $"Gerar PDF do {testeSelecionado.Titulo}";
+
+            telaEscolha.ShowDialog();
         }
 
         public override UserControl ObterListagem()
@@ -158,9 +192,20 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             return "Registro de Testes";
         }
 
-        public override void ApresentarMensagem(string mensagem, string titulo)
+        private void CarregarTestes()
         {
-            MessageBox.Show(mensagem, titulo, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            List<Teste> listaTestes = repositorioTeste.SelecionarTodos();
+
+            tabelaTeste.AtualizarRegistros(listaTestes);
         }
+
+        private Teste ObterTesteSelecionado()
+        {
+            int id = tabelaTeste.ObterIdSelecionado();
+
+            return repositorioTeste.SelecionarPorId(id);
+        }
+
+
     }
 }
