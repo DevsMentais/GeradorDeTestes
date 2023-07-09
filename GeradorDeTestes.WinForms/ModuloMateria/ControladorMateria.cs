@@ -41,12 +41,12 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
             DialogResult opcaoEscolhida = telaMateriaForm.ShowDialog();
 
-            if(opcaoEscolhida == DialogResult.OK)
+            Materia materia = telaMateriaForm.ObterMateria();
+
+            repositorioMateria.CarregarMateriasDisciplina(materia);
+
+            if (opcaoEscolhida == DialogResult.OK)
             {
-                Materia materia = telaMateriaForm.ObterMateria();
-
-                repositorioMateria.CarregarMateriasDisciplina(materia);
-
                 repositorioMateria.Inserir(materia);
             }
 

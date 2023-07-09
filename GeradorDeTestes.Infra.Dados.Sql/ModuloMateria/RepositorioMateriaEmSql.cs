@@ -59,7 +59,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
                                                     WHERE 
                                                         M.[ID] = @ID";
 
-        private string sqlAdicionarMateriaNaDisciplina => @"SELECT 
+        private string sqlSelecionarMateriaNaDisciplina => @"SELECT 
                 M.ID                    MATERIA_ID, 
                 M.NOME                  MATERIA_NOME,
                 M.DISCIPLINA_ID         DISCIPLINA_ID, 
@@ -97,7 +97,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
             conexaoComBanco.Open();
 
             SqlCommand comandoSelecionarMaterias = conexaoComBanco.CreateCommand();
-            comandoSelecionarMaterias.CommandText = sqlAdicionarMateriaNaDisciplina;
+            comandoSelecionarMaterias.CommandText = sqlSelecionarMateriaNaDisciplina;
 
             comandoSelecionarMaterias.Parameters.AddWithValue("DISCIPLINA_ID", materia.Disciplina.id);
             comandoSelecionarMaterias.Parameters.AddWithValue("MATERIA_ID", materia.id);
