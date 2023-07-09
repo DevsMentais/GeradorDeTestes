@@ -1,6 +1,7 @@
 ﻿using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.WinForms;
 using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
@@ -179,9 +180,9 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             foreach (Questao q in questoes)
             {
-                if (questao.Enunciado == q.Enunciado)
+                if (questao.Enunciado.ToUpper() == q.Enunciado.ToUpper() && questao.id != q.id)
                 {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome já esta em uso");
 
                     DialogResult = DialogResult.None;
                 }

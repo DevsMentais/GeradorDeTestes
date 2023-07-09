@@ -59,6 +59,12 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
             Materia materiaSelecionada = ObterMateriaSelecionada();
 
+            if (materiaSelecionada == null)
+            {
+                ApresentarMensagem("Selecione uma materia primeiro!", "Edição de Materias");
+                return;
+            }
+
             telaMateriaForm.ConfigurarTela(materiaSelecionada);
 
             DialogResult opcaoEscolhida = telaMateriaForm.ShowDialog();

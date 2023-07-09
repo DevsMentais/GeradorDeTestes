@@ -92,14 +92,12 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             foreach (Teste t in testes)
             {
-                if (teste.Titulo == t.Titulo)
+                if (teste.Titulo.ToUpper() == t.Titulo.ToUpper() && teste.id != t.id)
                 {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome já esta em uso");
 
                     DialogResult = DialogResult.None;
                 }
-
-
             }
         }
 

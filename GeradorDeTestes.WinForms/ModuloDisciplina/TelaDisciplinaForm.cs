@@ -55,9 +55,9 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
             foreach (Disciplina d in disciplinas)
             {
-                if (disciplina.Nome == d.Nome)
+                if (disciplina.Nome.ToUpper() == d.Nome.ToUpper() && disciplina.id != d.id)
                 {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome já esta em uso");
 
                     DialogResult = DialogResult.None;
                 }

@@ -81,9 +81,9 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
 
             foreach (Materia d in materias)
             {
-                if (materia.Nome == d.Nome)
+                if (materia.Nome.ToUpper() == d.Nome.ToUpper() && materia.id != d.id)
                 {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome ja esta em uso");
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome já esta em uso");
 
                     DialogResult = DialogResult.None;
                 }
