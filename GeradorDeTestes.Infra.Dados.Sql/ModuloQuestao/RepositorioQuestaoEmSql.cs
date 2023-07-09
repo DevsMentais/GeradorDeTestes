@@ -118,8 +118,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
                 A.QUESTAO_ID = @QUESTAO_ID AND Q.MATERIA_ID = @MATERIA_ID AND M.DISCIPLINA_ID = @DISCIPLINA_ID";
 
         private const string sqlRemoverAlternativas =
-            @"DELETE FROM TBALTERNATIVA 
-                WHERE QUESTAO_ID = @QUESTAO_ID";
+            @"DELETE FROM [TBALTERNATIVA]
+                WHERE
+                    [QUESTAO_ID] = @QUESTAO_ID";
 
         public void Inserir(Questao questao, List<Alternativa> alternativasAdicionadas)
         {
@@ -140,7 +141,10 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 
             foreach (Alternativa alternativa in alternativasAdicionadas)
             {
-                AdicionarAlternativa(alternativa, questao);
+                if (questao.ListAlternativas.Contains(alternativa) == false)
+                {
+                    AdicionarAlternativa(alternativa, questao);
+                }
             }
         }
 
@@ -164,6 +168,23 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             mapeador.ConfigurarParametros(comandoEditar, questao);
 
             comandoEditar.ExecuteNonQuery();
+
+            conexaoComBanco.Close();
+        }
+
+        public override void Excluir(Questao questao)
+        {
+            RemoverAlternativa(questao);
+
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoExclusao = new SqlCommand(sqlExcluir, conexaoComBanco);
+
+            comandoExclusao.Parameters.AddWithValue("ID", questao.id);
+
+            conexaoComBanco.Open();
+
+            int numeroRegistrosExcluidos = comandoExclusao.ExecuteNonQuery();
 
             conexaoComBanco.Close();
         }
@@ -270,6 +291,20 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             conexaoComBanco.Close();
         }
 
-        
+        private void RemoverAlternativa(Questao questao)
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoExclusao = new SqlCommand(sqlRemoverAlternativas, conexaoComBanco);
+
+            comandoExclusao.Parameters.AddWithValue("QUESTAO_ID", questao.id);
+
+            conexaoComBanco.Open();
+            comandoExclusao.ExecuteNonQuery();
+
+            conexaoComBanco.Close();
+        }
+
+
     }
 }
