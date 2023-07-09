@@ -94,7 +94,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             {
                 if (teste.Titulo.ToUpper() == t.Titulo.ToUpper() && teste.id != t.id)
                 {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome já esta em uso");
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O título já esta em uso");
 
                     DialogResult = DialogResult.None;
                 }

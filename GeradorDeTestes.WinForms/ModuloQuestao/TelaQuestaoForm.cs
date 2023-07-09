@@ -182,7 +182,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 if (questao.Enunciado.ToUpper() == q.Enunciado.ToUpper() && questao.id != q.id)
                 {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O nome já esta em uso");
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O Enunciado já esta em uso");
 
                     DialogResult = DialogResult.None;
                 }
