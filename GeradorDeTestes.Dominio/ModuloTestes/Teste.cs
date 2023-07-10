@@ -45,6 +45,12 @@ namespace GeradorDeTestes.Dominio.ModuloTestes
             if (Disciplina == null)
                 erros.Add("O campo  'disciplina' é obrigatorio");
 
+            //if (Materia == null)
+            //    erros.Add("O campo 'materia' é obrigatorio");
+
+            if (QuantidadeQuestoes == 0)
+                erros.Add("O número de questões não pode ser igual a zero");
+
             return erros.ToArray();
         }
 

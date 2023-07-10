@@ -36,7 +36,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             bool provaRecuperacao = chProvaRecup.Checked;
 
             Teste teste = new Teste(id, titulo, disciplina, materia, quantidadeDeQuestoes, provaRecuperacao);
-            teste.id = id;
 
             return teste;
         }
@@ -111,14 +110,35 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             List<Questao> questoesFiltradas = questoesDisponiveis.FindAll(x => x.Materia.id == materia.id);
 
-            for (int i = 0; i < quantidade; i++)
+            
+
+            if(chProvaRecup.Checked == false)
             {
-                if (questoesFiltradas.Count == 0)
-                    break;
-                
-                int index = random.Next(questoesFiltradas.Count);
-                questoesSorteadas.Add(questoesFiltradas[index]);
-                questoesFiltradas.RemoveAt(index);
+                for (int i = 0; i < quantidade; i++)
+                {
+                    if (questoesFiltradas.Count == 0)
+                        break;
+
+                    int index = random.Next(questoesFiltradas.Count);
+                    questoesSorteadas.Add(questoesFiltradas[index]);
+                    questoesFiltradas.RemoveAt(index);
+                }
+            }
+            else
+            {
+                cbMateria.Enabled = false;
+
+                foreach(Materia m in materia.Disciplina.ListMaterias)
+                {
+                    List<Questao> questoesDaMateria = questoes.FindAll(q => q.Materia.Disciplina.id == m.Disciplina.id);
+
+                    if (questoesDaMateria.Count == 0)
+                        break;
+
+                    int index = random.Next(questoesDaMateria.Count);
+                    questoesSorteadas.Add(questoesDaMateria[index]);
+                    questoesDaMateria.RemoveAt(index);
+                }
             }
 
             return questoesSorteadas;
@@ -131,6 +151,8 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             if (cbDisciplina.SelectedItem != null)
             {
                 Disciplina disciplinaSelecionada = (Disciplina)cbDisciplina.SelectedItem;
+
+                cbMateria.Text = "";
 
                 List<Materia> materiasRelacionadas = repositorioMateria.CarregarMateriasDisciplina(disciplinaSelecionada);
 
@@ -166,6 +188,13 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
                     DialogResult = DialogResult.None;
                 }
+            }
+
+            if(listBoxSorteadas.Items.Count == 0)
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape("É necessário sortear questões");
+
+                DialogResult = DialogResult.None;
             }
         }
     }

@@ -121,6 +121,10 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
                                                           WHERE
                                                         [QUESTAO_ID] = @QUESTAO_ID";
 
+        private const string sqlRemoverQuestoes = @"DELETE FROM [TBTESTE_TBQUESTOES]
+                                                          WHERE
+                                                        [QUESTAO_ID] = @QUESTAO_ID";
+
         #endregion
 
         public void Inserir(Questao questao, List<Alternativa> alternativasAdicionadas)
@@ -142,10 +146,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
 
             foreach (Alternativa alternativa in alternativasAdicionadas)
             {
-                if (questao.ListAlternativas.Contains(alternativa) == false)
-                {
-                    AdicionarAlternativa(alternativa, questao);
-                }
+                AdicionarAlternativa(alternativa, questao);
             }
         }
 
@@ -177,6 +178,8 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
         public override void Excluir(Questao questao)
         {
             RemoverAlternativa(questao);
+
+            RemoverQuestoes(questao);
 
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 
@@ -298,6 +301,20 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 
             SqlCommand comandoExclusao = new SqlCommand(sqlRemoverAlternativas, conexaoComBanco);
+
+            comandoExclusao.Parameters.AddWithValue("QUESTAO_ID", questao.id);
+
+            conexaoComBanco.Open();
+            comandoExclusao.ExecuteNonQuery();
+
+            conexaoComBanco.Close();
+        }
+
+        private void RemoverQuestoes(Questao questao)
+        {
+            SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
+
+            SqlCommand comandoExclusao = new SqlCommand(sqlRemoverQuestoes, conexaoComBanco);
 
             comandoExclusao.Parameters.AddWithValue("QUESTAO_ID", questao.id);
 

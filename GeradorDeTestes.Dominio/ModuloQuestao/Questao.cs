@@ -11,6 +11,14 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
         public string RespostaCerta { get; set; }
         public List<Alternativa> ListAlternativas { get; set; }
 
+        public Questao(int id, Materia materia, string enunciado)
+        {
+            this.id = id;
+            Materia = materia;
+            Enunciado = enunciado;
+            ListAlternativas = new List<Alternativa>();
+        }
+
         public Questao(int id,Materia materia, string enunciado, string respostaCerta)
         {
             this.id = id;
@@ -52,6 +60,9 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
 
         public void AdicionarAlternativa(Alternativa alternativa)
         {
+            if(ListAlternativas.Contains(alternativa))
+                 return; 
+
             ListAlternativas.Add(alternativa);
         }
 

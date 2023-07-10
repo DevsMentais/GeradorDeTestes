@@ -38,30 +38,32 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             int id = int.Parse(txtId.Text);
             string enunciado = txtEnunciado.Text;
             Materia materia = (Materia)cbMateria.SelectedItem;
-            string respostaCerta;
+            string respostaCerta = null;
 
-            if(chListAlternativas.Items.Count == 0)
+            questao = new Questao(id, materia, enunciado);
+
+            if (chListAlternativas.Items.Count == 0)
                 return null;
 
             if (chListAlternativas.CheckedItems.Count == 0)
-                respostaCerta = "erro";
+                return null;
+
             else
-                respostaCerta = chListAlternativas.CheckedItems[0].ToString()!;
+            {
+                respostaCerta = ObterAlternativaMarcada().ToString();
+            }
 
-
-            questao = new Questao(id, materia, enunciado, respostaCerta);
+            questao.RespostaCerta = respostaCerta;
 
             foreach (Alternativa alternativa in ObterAlternativasDesmarcadas())
             {
                 questao.AdicionarAlternativa(alternativa);
             }
 
-            foreach (Alternativa alternativaMarcada in ObterAlternativasDaLista())
-            {
-                Alternativa alternativa = new Alternativa(questao, respostaCerta, true);
-                alternativa.Correta = true;
-                questao.AdicionarAlternativa(alternativa);
-            } 
+            Alternativa alternativaCorreta = ObterAlternativaMarcada();
+
+            alternativaCorreta.Correta = true;
+            questao.AdicionarAlternativa(alternativaCorreta);
 
             return questao;
         }
@@ -94,7 +96,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 {
                     if (questao.ListAlternativas.Contains(alternativa))
                     {
-                        chListAlternativas.SetItemChecked(i, true);
+                        chListAlternativas.SetItemChecked(j, true);
                     }
 
                     i++;
@@ -107,10 +109,15 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             return chListAlternativas.Items.Cast<Alternativa>().ToList();
         }
 
+        public Alternativa ObterAlternativaMarcada()
+        {
+            return chListAlternativas.Items.Cast<Alternativa>().FirstOrDefault();
+        }
+
         public List<Alternativa> ObterAlternativasDesmarcadas()
         {
             return chListAlternativas.Items.Cast<Alternativa>()
-                .Except(ObterAlternativasDaLista()).ToList();
+                .Except(chListAlternativas.CheckedItems.Cast<Alternativa>()).ToList();
         }
 
         private void btnAdicionar_Click(object sender, EventArgs e)
@@ -162,13 +169,18 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         {
             Questao questao = ObterQuestao();
 
+            if (questao == null)
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape("Nenhuma alternativa foi marcada");
+                DialogResult = DialogResult.None;
+                return;
+            }
+
             ValidarErros(questao);
         }
 
         private void ValidarErros(Questao questao)
         {
-            if (questao == null) return;
-
             string[] erros = questao.Validar();
 
             if (erros.Length > 0)
