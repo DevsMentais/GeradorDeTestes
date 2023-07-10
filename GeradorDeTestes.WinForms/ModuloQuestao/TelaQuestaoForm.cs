@@ -158,13 +158,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             }
         }
 
-        //private char ObterLetraAlternativa()
-        //{
-        //    int letraAscii = 65 + alternativaCount;
-
-        //    return (char)letraAscii;
-        //}
-
         private void btnGravar_Click(object sender, EventArgs e)
         {
             Questao questao = ObterQuestao();
