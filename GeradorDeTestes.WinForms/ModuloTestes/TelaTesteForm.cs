@@ -89,7 +89,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             Materia materiaSelecionada = (Materia)cbMateria.SelectedItem;
 
-            if (questoes.Count < quantidade)
+            if (questoes.Count <= quantidade)
             {
                 MessageBox.Show("Não há questões suficientes para a quantidade solicitada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

@@ -19,11 +19,11 @@ namespace GeradorDeTestes.WinForms.ModuloDisciplina
 
         public override string ToolTipExcluir => "Excluir Disciplina existente";
 
-        public override string ToolTipVisualizar => "Visualizar Matérias da Disciplina";
-
         public override bool DuplicarHabilitado => false;
 
         public override bool SalvarHabilitado => false;
+
+        public override bool VisualizarHabilitado => false;
 
 
         public override void ApresentarMensagem(string mensagem, string titulo)
