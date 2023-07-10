@@ -1,9 +1,10 @@
 ﻿using GeradorDeTestes.Dominio.Compartilhado;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 
 namespace GeradorDeTestes.Dominio.ModuloMateria
 {
     public interface IRepositorioMateria : IRepositorioBase<Materia>
     {
-        public void CarregarMateriasDisciplina(Materia materia);
+        public List<Materia> CarregarMateriasDisciplina(Disciplina disciplina);
     }
 }

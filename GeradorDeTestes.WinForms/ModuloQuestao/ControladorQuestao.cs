@@ -101,14 +101,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                try
-                {
-                    repositorioQuestao.Excluir(questaoSelecionada);
-                }
-                catch (Microsoft.Data.SqlClient.SqlException)
-                {
-                    ApresentarMensagem("Não é possível excluir a questão pois ela possui um teste!", "Exclusão de Questões");
-                }
+                repositorioQuestao.Excluir(questaoSelecionada);
             }
 
             CarregarQuestoes();

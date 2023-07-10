@@ -10,8 +10,9 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
     {
         private List<Questao> questoes;
         private List<Teste> testes;
+        private IRepositorioMateria repositorioMateria;
 
-        public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes, List<Teste> testes)
+        public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes, List<Teste> testes, IRepositorioMateria repositorioMateria)
         {
             this.questoes = questoes;
             this.testes = testes;
@@ -22,6 +23,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             ConfigurarComboBoxDisciplina(disciplinas);
             ConfigurarComboBoxMateria(materias);
             this.testes = testes;
+            this.repositorioMateria = repositorioMateria;
         }
 
         public Teste ObterTeste()
@@ -161,15 +163,10 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             {
                 Disciplina disciplinaSelecionada = (Disciplina)cbDisciplina.SelectedItem;
 
-                List<Materia> materiasRelacionadas = ObterMateriasPorDisciplina(disciplinaSelecionada);
+                List<Materia> materiasRelacionadas = repositorioMateria.CarregarMateriasDisciplina(disciplinaSelecionada);
 
                 cbMateria.Items.AddRange(materiasRelacionadas.ToArray());
             }
-        }
-
-        private List<Materia> ObterMateriasPorDisciplina(Disciplina disciplinaSelecionada)
-        {
-            return disciplinaSelecionada.ListMaterias;
         }
     }
 }

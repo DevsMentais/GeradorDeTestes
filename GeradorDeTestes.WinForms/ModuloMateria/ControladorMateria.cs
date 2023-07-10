@@ -45,8 +45,6 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             {
                 Materia materia = telaMateriaForm.ObterMateria();
 
-                repositorioMateria.CarregarMateriasDisciplina(materia);
-
                 repositorioMateria.Inserir(materia);
             }
 

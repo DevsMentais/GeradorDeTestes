@@ -9,6 +9,13 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
         public Disciplina Disciplina { get; set; }
         public int Serie { get; set; }
 
+        public Materia(int id, string nome, int serie)
+        {
+            this.id = id;
+            Nome = nome;
+            Serie = serie;
+        }
+
         public Materia(int id, string nome, Disciplina disciplina, int serie)
         {
             this.id = id;

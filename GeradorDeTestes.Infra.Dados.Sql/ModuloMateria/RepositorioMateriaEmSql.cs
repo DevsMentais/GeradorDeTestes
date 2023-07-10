@@ -59,23 +59,27 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
                                                     WHERE 
                                                         M.[ID] = @ID";
 
-        private string sqlSelecionarMateriaNaDisciplina => @"SELECT 
-                M.ID                    MATERIA_ID, 
-                M.NOME                  MATERIA_NOME,
-                M.DISCIPLINA_ID         DISCIPLINA_ID, 
-                M.SERIE                 SERIE_ID,
+        //private string sqlSelecionarMateriaNaDisciplina => @"SELECT 
+        //        M.ID                    MATERIA_ID, 
+        //        M.NOME                  MATERIA_NOME,
+        //        M.DISCIPLINA_ID         DISCIPLINA_ID, 
+        //        M.SERIE                 SERIE_ID,
 
-                D.ID             DISCIPLINA_ID,
-                D.NOME           DISCIPLINA_NOME
-            FROM 
-                TBMATERIA M
+        //        D.ID             DISCIPLINA_ID,
+        //        D.NOME           DISCIPLINA_NOME
+        //    FROM 
+        //        TBMATERIA M
 
-                INNER JOIN TBDISCIPLINA D
+        //        INNER JOIN TBDISCIPLINA D
 
-                    ON M.DISCIPLINA_ID = D.ID
-            WHERE 
+        //            ON M.DISCIPLINA_ID = D.ID
+        //    WHERE 
 
-                M.ID = @MATERIA_ID AND D.ID = @DISCIPLINA_ID";
+        //        M.ID = @MATERIA_ID AND D.ID = @DISCIPLINA_ID";
+
+        private string sqlSelecionarMateriaNaDisciplina => @"SELECT * FROM [TBMATERIA] 
+	                                                          WHERE
+		                                                        DISCIPLINA_ID = @DISCIPLINA_ID";
 
         public override List<Materia> SelecionarTodos()
         {
@@ -91,7 +95,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
             return materia;
         }
 
-        public void CarregarMateriasDisciplina(Materia materia)
+        public List<Materia> CarregarMateriasDisciplina(Disciplina disciplina)
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();
@@ -99,21 +103,27 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
             SqlCommand comandoSelecionarMaterias = conexaoComBanco.CreateCommand();
             comandoSelecionarMaterias.CommandText = sqlSelecionarMateriaNaDisciplina;
 
-            comandoSelecionarMaterias.Parameters.AddWithValue("DISCIPLINA_ID", materia.Disciplina.id);
-            comandoSelecionarMaterias.Parameters.AddWithValue("MATERIA_ID", materia.id);
+            comandoSelecionarMaterias.Parameters.AddWithValue("DISCIPLINA_ID", disciplina.id);
+            comandoSelecionarMaterias.Parameters.AddWithValue("DISCIPLINA_NOME", disciplina.Nome);
 
             SqlDataReader leitorMateria = comandoSelecionarMaterias.ExecuteReader();
+
+            List<Materia> materias = new List<Materia>();
 
             while (leitorMateria.Read())
             {
                 MapeadorMateria mapeador = new MapeadorMateria();
 
-                materia = mapeador.ConverterRegistro(leitorMateria);
+                Materia materia = mapeador.ConverterRegistro2(leitorMateria);
 
-                materia.Disciplina.ListMaterias.Add(materia);
+                materias.Add(materia);
             }
 
+
+
             conexaoComBanco.Close();
+
+            return materias;
         }
 
     }
