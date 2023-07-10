@@ -79,7 +79,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
 
-            //-------------------------------------------------------------------------------------------------------------------------------------------
             doc.Open();
 
             BaseColor corPadrao = BaseColor.BLACK;
@@ -92,12 +91,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             Paragraph data = new Paragraph(string.Format($"Data: {DateTime.Today.ToString("dd/MM/yyyy")}"), fonteInfo);
             doc.Add(data);
-
-            //if (!string.IsNullOrEmpty(txtDiretorio.Text))
-            //{
-            //    Paragraph nomeEstudante = new Paragraph(string.Format($"Nome: {txtDiretorio.Text}"), fonteInfo);
-            //    doc.Add(nomeEstudante);
-            //}
 
             Paragraph disciplina = new Paragraph(string.Format($"Disciplina: {testeSelecionado.Disciplina}"), fonteInfo);
             doc.Add(disciplina);
@@ -119,32 +112,50 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             doc.Add(new Paragraph(" "));
 
+            int numeroQuestao = 1;
+
             testeSelecionado.ListQuestoes.ForEach(q =>
             {
                 char letra = 'A';
                 repositorioQuestao.CarregarAlternativas(q);
 
-                Paragraph questao = new Paragraph(string.Format($"{q}"), fonteQuestao);
+                Paragraph numQuestao = new Paragraph($"Questão {numeroQuestao}:", fonteQuestao);
+                numQuestao.FirstLineIndent = 20f;
+                numQuestao.SpacingAfter = 5f;
+                doc.Add(numQuestao);
+
+                Paragraph questao = new Paragraph($"{numeroQuestao}. {q}", fonteQuestao);
+                questao.FirstLineIndent = 40f; 
                 doc.Add(questao);
                 doc.Add(new Paragraph(" "));
 
                 q.ListAlternativas.ForEach(a =>
                 {
                     Paragraph alternativa = new Paragraph(string.Format($"{letra}) {a}"), fonteQuestao);
+                    alternativa.FirstLineIndent = 60f;
+                    alternativa.SpacingBefore = 5f;
+                    alternativa.SpacingAfter = 2f;
                     doc.Add(alternativa);
-                    doc.Add(new Paragraph(" "));
                     letra++;
                 });
 
                 if (rdbGabarito.Checked)
                 {
                     Paragraph respostaCerta = new Paragraph(string.Format($"Resposta Certa: {q.RespostaCerta}"), fonteGabarito);
+                    respostaCerta.FirstLineIndent = 40f; 
+                    respostaCerta.SpacingBefore = 10f;
+                    respostaCerta.SpacingAfter = 5f;
                     doc.Add(respostaCerta);
-                    doc.Add(new Paragraph(" "));
                 }
+
+                doc.Add(new Paragraph(" ")); 
+
+                numeroQuestao++;
             });
 
             doc.Close();
         }
+
+
     }
 }

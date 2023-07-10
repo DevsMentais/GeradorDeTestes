@@ -111,7 +111,10 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
         public Alternativa ObterAlternativaMarcada()
         {
-            return chListAlternativas.Items.Cast<Alternativa>().FirstOrDefault();
+            List<Alternativa> listaCerta = new List<Alternativa>();
+            listaCerta = chListAlternativas.CheckedItems.Cast<Alternativa>().ToList();
+            Alternativa alt = listaCerta[0];
+            return alt;
         }
 
         public List<Alternativa> ObterAlternativasDesmarcadas()
