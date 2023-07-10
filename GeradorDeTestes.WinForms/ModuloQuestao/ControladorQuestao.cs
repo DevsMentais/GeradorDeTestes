@@ -2,6 +2,7 @@
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
 
 namespace GeradorDeTestes.WinForms.ModuloQuestoes
@@ -11,12 +12,14 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         private IRepositorioQuestao repositorioQuestao;
         private TabelaQuestaoControl tabelaQuestao;
         private IRepositorioMateria repositorioMateria;
+        private IRepositorioTeste repositorioTeste;
 
 
-        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria)
+        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria, IRepositorioTeste repositorioTeste)
         {
             this.repositorioQuestao = repositorioQuestao;
             this.repositorioMateria = repositorioMateria;
+            this.repositorioTeste = repositorioTeste;
         }
 
         public override string ToolTipInserir => "Inserir Nova Questão";
@@ -93,12 +96,19 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 return;
             }
 
-            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a questão {questaoSelecionada.id}?", "Exclusão de Matérias",
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a questão {questaoSelecionada.id}?", "Exclusão de Questões",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioQuestao.Excluir(questaoSelecionada);
+                try
+                {
+                    repositorioQuestao.Excluir(questaoSelecionada, repositorioTeste.SelecionarTodos());
+                }
+                catch (Microsoft.Data.SqlClient.SqlException) 
+                {
+                    ApresentarMensagem("Não foi possível excluir a questão, ela possui um teste!", "Exclusão de Questões");
+                }
             }
 
             CarregarQuestoes();

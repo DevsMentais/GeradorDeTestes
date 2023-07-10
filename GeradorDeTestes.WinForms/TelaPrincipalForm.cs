@@ -113,7 +113,7 @@ namespace GeradorDeTestes.WinForms
 
         private void questoesMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria);
+            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioTeste);
 
             ConfigurarTelaPrincipal(controlador);
         }

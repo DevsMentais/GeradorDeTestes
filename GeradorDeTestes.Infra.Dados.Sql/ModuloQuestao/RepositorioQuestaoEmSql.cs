@@ -1,5 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.Infra.Dados.Sql.Compartilhado;
 using Microsoft.Data.SqlClient;
 
@@ -175,12 +176,14 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             conexaoComBanco.Close();
         }
 
-        public override void Excluir(Questao questao)
+        public void Excluir(Questao questao, List<Teste> testes)
         {
             RemoverAlternativa(questao);
 
-            RemoverQuestoes(questao);
-
+            if (testes.Exists(t => t.ListQuestoes.Contains(questao)))
+            {
+                RemoverQuestoes(questao);
+            }
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
 
             SqlCommand comandoExclusao = new SqlCommand(sqlExcluir, conexaoComBanco);
