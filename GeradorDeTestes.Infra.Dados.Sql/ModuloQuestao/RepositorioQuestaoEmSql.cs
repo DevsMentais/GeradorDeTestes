@@ -152,8 +152,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
         {
             foreach (Alternativa alternativaParaAdicionar in alternativas)
             {
-                if (questao.Contem(alternativaParaAdicionar))
+                if (questao.Existe(alternativaParaAdicionar))
                     continue;
+
                 AdicionarAlternativa(alternativaParaAdicionar, questao);
                 questao.AdicionarAlternativa(alternativaParaAdicionar);
             }

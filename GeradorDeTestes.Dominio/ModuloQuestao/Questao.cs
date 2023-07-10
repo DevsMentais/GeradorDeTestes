@@ -55,9 +55,9 @@ namespace GeradorDeTestes.Dominio.ModuloQuestoes
             ListAlternativas.Add(alternativa);
         }
 
-        public bool Contem(Alternativa alternativaParaAdicionar)
+        public bool Existe(Alternativa alternativaParaAdicionar)
         {
-            if (ListAlternativas.Contains(alternativaParaAdicionar))
+            if (ListAlternativas.Exists(x => x.id == alternativaParaAdicionar.id))
                 return true;
 
             return false;
