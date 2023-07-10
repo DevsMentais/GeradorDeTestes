@@ -130,7 +130,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 return;
             }
 
-            alternativa.Resposta = $"({ObterLetraAlternativa()}) {txtResposta.Text}";
+            alternativa.Resposta = $"{txtResposta.Text}";
 
             alternativaCount++;
 
@@ -158,12 +158,12 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             }
         }
 
-        private char ObterLetraAlternativa()
-        {
-            int letraAscii = 65 + alternativaCount;
+        //private char ObterLetraAlternativa()
+        //{
+        //    int letraAscii = 65 + alternativaCount;
 
-            return (char)letraAscii;
-        }
+        //    return (char)letraAscii;
+        //}
 
         private void btnGravar_Click(object sender, EventArgs e)
         {

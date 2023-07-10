@@ -270,7 +270,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestoes
             conexaoComBanco.Close();
         }
 
-        private void CarregarAlternativas(Questao questao)
+        public void CarregarAlternativas(Questao questao)
         {
             SqlConnection conexaoComBanco = new SqlConnection(enderecoBanco);
             conexaoComBanco.Open();

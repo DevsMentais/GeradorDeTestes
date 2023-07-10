@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloTestes;
+﻿using GeradorDeTestes.Dominio.ModuloQuestoes;
+using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -9,9 +10,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
     public partial class TelaGerarPdfForm : Form
     {
         private Teste testeSelecionado;
+        private IRepositorioQuestao repositorioQuestao;
 
-        public TelaGerarPdfForm(Teste testeSelecionado)
+        public TelaGerarPdfForm(Teste testeSelecionado, IRepositorioQuestao repositorioQuestao)
         {
+            this.repositorioQuestao = repositorioQuestao;
             InitializeComponent();
             this.ConfigurarDialog();
             this.testeSelecionado = testeSelecionado;
@@ -76,17 +79,25 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
 
-
+            //-------------------------------------------------------------------------------------------------------------------------------------------
             doc.Open();
 
             BaseColor corPadrao = BaseColor.BLACK;
+            BaseColor corGabarito = new BaseColor(34, 139, 34);
 
             iTextSharp.text.Font fonteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16, corPadrao);
             iTextSharp.text.Font fonteInfo = FontFactory.GetFont(FontFactory.HELVETICA, 13, corPadrao);
             iTextSharp.text.Font fonteQuestao = FontFactory.GetFont(FontFactory.HELVETICA, 12, corPadrao);
+            iTextSharp.text.Font fonteGabarito = FontFactory.GetFont(FontFactory.HELVETICA, 12, corGabarito);
 
             Paragraph data = new Paragraph(string.Format($"Data: {DateTime.Today.ToString("dd/MM/yyyy")}"), fonteInfo);
             doc.Add(data);
+
+            //if (!string.IsNullOrEmpty(txtDiretorio.Text))
+            //{
+            //    Paragraph nomeEstudante = new Paragraph(string.Format($"Nome: {txtDiretorio.Text}"), fonteInfo);
+            //    doc.Add(nomeEstudante);
+            //}
 
             Paragraph disciplina = new Paragraph(string.Format($"Disciplina: {testeSelecionado.Disciplina}"), fonteInfo);
             doc.Add(disciplina);
@@ -108,42 +119,30 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             doc.Add(new Paragraph(" "));
 
-            Paragraph qtdQuestoes = new Paragraph(string.Format($"Resolva as questões abaixo:"), fonteInfo);
-            doc.Add(qtdQuestoes);
-
-            doc.Add(new Paragraph(" "));
-
             testeSelecionado.ListQuestoes.ForEach(q =>
             {
+                char letra = 'A';
+                repositorioQuestao.CarregarAlternativas(q);
+
                 Paragraph questao = new Paragraph(string.Format($"{q}"), fonteQuestao);
                 doc.Add(questao);
                 doc.Add(new Paragraph(" "));
-            });
 
-            testeSelecionado.ListQuestoes.ForEach(q =>
-            {
-                Paragraph questao = new Paragraph(string.Format($"{q}"), fonteQuestao);
-                doc.Add(questao);
-
-                // Verifica se a questão possui alternativas
-                if (q.ListAlternativas != null && q.ListAlternativas.Count > 0)
+                q.ListAlternativas.ForEach(a =>
                 {
-                    // Adiciona as alternativas ao documento
-                    foreach (var alternativa in q.ListAlternativas)
-                    {
-                        Paragraph alt = new Paragraph(string.Format($"- {alternativa}"), fonteQuestao);
-                        doc.Add(alt);
-                    }
+                    Paragraph alternativa = new Paragraph(string.Format($"{letra}) {a}"), fonteQuestao);
+                    doc.Add(alternativa);
+                    doc.Add(new Paragraph(" "));
+                    letra++;
+                });
+
+                if (rdbGabarito.Checked)
+                {
+                    Paragraph respostaCerta = new Paragraph(string.Format($"Resposta Certa: {q.RespostaCerta}"), fonteGabarito);
+                    doc.Add(respostaCerta);
+                    doc.Add(new Paragraph(" "));
                 }
-
-                doc.Add(new Paragraph(" "));
             });
-
-
-            if (rdbGabarito.Checked)
-            {
-
-            }
 
             doc.Close();
         }

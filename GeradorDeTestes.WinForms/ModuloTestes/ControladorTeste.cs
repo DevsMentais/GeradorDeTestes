@@ -169,7 +169,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 return;
             }
 
-            TelaGerarPdfForm telaEscolha = new TelaGerarPdfForm(testeSelecionado);
+            TelaGerarPdfForm telaEscolha = new TelaGerarPdfForm(testeSelecionado, repositorioQuestao);
             telaEscolha.Text = $"Gerar PDF do {testeSelecionado.Titulo}";
 
             telaEscolha.ShowDialog();
