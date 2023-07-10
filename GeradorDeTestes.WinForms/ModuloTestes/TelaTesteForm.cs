@@ -142,14 +142,19 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
         private List<Questao> SortearQuestoes(List<Questao> questoesDisponiveis, int quantidade)
         {
             List<Questao> questoesSorteadas = new List<Questao>();
-
             Random random = new Random();
+            Materia materia = (Materia)cbMateria.SelectedItem;
+
+            List<Questao> questoesFiltradas = questoesDisponiveis.FindAll(x => x.Materia.id == materia.id);
 
             for (int i = 0; i < quantidade; i++)
             {
-                int index = random.Next(questoesDisponiveis.Count);
-                questoesSorteadas.Add(questoesDisponiveis[index]);
-                questoesDisponiveis.RemoveAt(index);
+                if (questoesFiltradas.Count == 0)
+                    break;
+                
+                int index = random.Next(questoesFiltradas.Count);
+                questoesSorteadas.Add(questoesFiltradas[index]);
+                questoesFiltradas.RemoveAt(index);
             }
 
             return questoesSorteadas;
