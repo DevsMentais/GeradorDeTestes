@@ -18,16 +18,6 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
             CarregarDisciplinas(disciplinas);
         }
 
-        private void CarregarDisciplinas(List<Disciplina> disciplinas)
-        {
-            cbDisciplina.Items.Clear();
-
-            foreach (Disciplina disciplina in disciplinas)
-            {
-                cbDisciplina.Items.Add(disciplina);
-            }
-        }
-
         public Materia ObterMateria()
         {
             int id = Convert.ToInt32(txtId.Text);
@@ -57,6 +47,16 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
                 rdbPrimeiro.Checked = true;
             if (materiaSelecionada.Serie == 2)
                 rdbSegundo.Checked = true;
+        }
+
+        private void CarregarDisciplinas(List<Disciplina> disciplinas)
+        {
+            cbDisciplina.Items.Clear();
+
+            foreach (Disciplina disciplina in disciplinas)
+            {
+                cbDisciplina.Items.Add(disciplina);
+            }
         }
 
         private void btnGravar_Click(object sender, EventArgs e)

@@ -9,6 +9,8 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
 {
     public class RepositorioTesteEmSql : RepositorioEmSqlBase<Teste, MapeadorTeste>,IRepositorioTeste
     {
+        #region query
+
         protected override string sqlInserir => @"INSERT INTO[DBO].[TBTESTE]
                                                     (
                                                         [TITULO]
@@ -84,52 +86,54 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                                                         T.[ID] = @ID";
 
 
-        private const string sqlAdicionarQuestao =
-            @"INSERT INTO [TBTESTE_TBQUESTOES]
-                (
-                    [Questao_Id]
-                   ,[Teste_Id])
-            VALUES
-                (
-                    @Questao_Id
-                   ,@Teste_Id
-                )";
+        private const string sqlAdicionarQuestao = @"INSERT INTO [TBTESTE_TBQUESTOES]
+                                                           (
+                                                               [Questao_Id]
+                                                              ,[Teste_Id])
+                                                       VALUES
+                                                           (
+                                                               @Questao_Id
+                                                              ,@Teste_Id
+                                                           )";
 
-        private const string sqlRemoverQuestoes =
-            @"DELETE FROM TBTESTE_TBQUESTOES
-                WHERE TESTE_ID = @TESTE_ID AND QUESTAO_ID = @QUESTAO_ID";
+
+        private const string sqlRemoverQuestoes = @"DELETE FROM TBTESTE_TBQUESTOES
+                                                           WHERE TESTE_ID = @TESTE_ID AND QUESTAO_ID = @QUESTAO_ID";
+
 
         private const string sqlCarregasQuestoesTeste = @"SELECT 
-                Q.ID                QUESTAO_ID, 
-                Q.MATERIA_ID        QUESTAO_MATERIA_ID, 
-                Q.ENUNCIADO         QUESTAO_ENUNCIADO,
-                Q.RESPOSTA          QUESTAO_RESPOSTA,
+                                                       Q.ID                QUESTAO_ID, 
+                                                       Q.MATERIA_ID        QUESTAO_MATERIA_ID, 
+                                                       Q.ENUNCIADO         QUESTAO_ENUNCIADO,
+                                                       Q.RESPOSTA          QUESTAO_RESPOSTA,
 
-                TBT.TESTE_ID        TESTE_ID,
-                
-                M.ID                MATERIA_ID,
-                M.NOME              MATERIA_NOME,
-                M.DISCIPLINA_ID     DISCIPLINA_ID,
-                M.SERIE             MATERIA_SERIE,
+                                                       TBT.TESTE_ID        TESTE_ID,
+                                                       
+                                                       M.ID                MATERIA_ID,
+                                                       M.NOME              MATERIA_NOME,
+                                                       M.DISCIPLINA_ID     DISCIPLINA_ID,
+                                                       M.SERIE             MATERIA_SERIE,
 
-                D.ID             DISCIPLINA_ID,
-                D.NOME           DISCIPLINA_NOME
-                
-            FROM 
-                [TBQUESTOES] Q
+                                                       D.ID             DISCIPLINA_ID,
+                                                       D.NOME           DISCIPLINA_NOME
+                                                       
+                                                   FROM 
+                                                       [TBQUESTOES] Q
 
-                INNER JOIN TBTESTE_TBQUESTOES TBT
-                    ON Q.ID = TBT.QUESTAO_ID
+                                                       INNER JOIN TBTESTE_TBQUESTOES TBT
+                                                           ON Q.ID = TBT.QUESTAO_ID
 
-                INNER JOIN TBMATERIA M
-                    ON Q.MATERIA_ID = M.ID
+                                                       INNER JOIN TBMATERIA M
+                                                           ON Q.MATERIA_ID = M.ID
     
-                INNER JOIN TBDISCIPLINA D
-                    ON M.DISCIPLINA_ID = D.ID
+                                                       INNER JOIN TBDISCIPLINA D
+                                                           ON M.DISCIPLINA_ID = D.ID
 
-            WHERE 
+                                                   WHERE 
 
-                TBT.TESTE_ID = @TESTE_ID";
+                                                       TBT.TESTE_ID = @TESTE_ID";
+
+        #endregion
 
 
         public void Inserir(Teste novoRegistro, List<Questao> questoesAdicionadas)

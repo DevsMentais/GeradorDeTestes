@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloQuestoes;
 using GeradorDeTestes.WinForms.Compartilhado;
@@ -18,7 +19,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             this.repositorioMateria = repositorioMateria;
         }
 
-        public override string ToolTipInserir => "Enserir Nova Questão";
+        public override string ToolTipInserir => "Inserir Nova Questão";
 
         public override string ToolTipEditar => "Editar Questão Existente";
 
@@ -59,7 +60,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                     return;
                 }
 
-                repositorioQuestao.Inserir(questao, telaQuestaoForm.ObterAlternativas());
+                repositorioQuestao.Inserir(questao, telaQuestaoForm.ObterAlternativasDaLista());
             }
 
             CarregarQuestoes();
@@ -71,6 +72,12 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
 
             Questao questaoSelecionada = ObterQuestaoSelecionada();
 
+            if (questaoSelecionada == null)
+            {
+                ApresentarMensagem("Selecione uma questao primeiro!", "Edição de Questoes");
+                return;
+            }
+
             telaQuestaoForm.ConfigurarTela(questaoSelecionada);
 
             DialogResult opcaoEscolhida = telaQuestaoForm.ShowDialog();
@@ -79,7 +86,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             {
                 Questao questao = telaQuestaoForm.ObterQuestao();
 
-                List<Alternativa> alternativasMarcadas = telaQuestaoForm.ObterAlternativas();
+                List<Alternativa> alternativasMarcadas = telaQuestaoForm.ObterAlternativasDaLista();
 
                 List<Alternativa> alternativasDesmarcadas = telaQuestaoForm.ObterAlternativasDesmarcadas();
 
@@ -93,6 +100,12 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
         public override void Excluir()
         {
             Questao questaoSelecionada = ObterQuestaoSelecionada();
+
+            if (questaoSelecionada == null)
+            {
+                ApresentarMensagem("Selecione uma questao primeiro!", "Exclusão de Questoes");
+                return;
+            }
 
             DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a questão {questaoSelecionada.id}?", "Exclusão de Matérias",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);

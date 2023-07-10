@@ -72,70 +72,34 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             return listBoxSorteadas.Items.Cast<Questao>().ToList();
         }
 
-        private void btnGravar_Click(object sender, EventArgs e)
-        {
-            Teste teste = ObterTeste();
-
-            ValidarErros(teste);
-        }
-
-        private void ValidarErros(Teste teste)
-        {
-            if (teste == null) return;
-
-            string[] erros = teste.Validar();
-
-            if (erros.Length > 0)
-            {
-                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
-
-                DialogResult = DialogResult.None;
-            }
-
-            foreach (Teste t in testes)
-            {
-                if (teste.Titulo.ToUpper() == t.Titulo.ToUpper() && teste.id != t.id)
-                {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O título já esta em uso");
-
-                    DialogResult = DialogResult.None;
-                }
-            }
-        }
-
         private void btnSortear_Click(object sender, EventArgs e)
         {
             int quantidade = (int)numQtdQuestoes.Value;
 
-            if (cbMateria.SelectedItem != null)
-            {
-                if (quantidade > 0)
-                {
-                    Materia materiaSelecionada = (Materia)cbMateria.SelectedItem;
-
-                    if (questoes.Count >= quantidade)
-                    {
-                        List<Questao> questoesSorteadas = SortearQuestoes(questoes, quantidade);
-
-                        questoesSorteadas.ForEach(q => listBoxSorteadas.Items.Add(q));
-                    }
-                    else
-                    {
-                        MessageBox.Show("Não há questões suficientes para a quantidade solicitada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Digite uma quantidade válida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-            else
+            if (cbMateria.SelectedItem == null)
             {
                 MessageBox.Show("Selecione uma matéria!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            if (quantidade <= 0)
+            {
+                MessageBox.Show("Digite uma quantidade válida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Materia materiaSelecionada = (Materia)cbMateria.SelectedItem;
+
+            if (questoes.Count < quantidade)
+            {
+                MessageBox.Show("Não há questões suficientes para a quantidade solicitada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            List<Questao> questoesSorteadas = SortearQuestoes(questoes, quantidade);
+
+            questoesSorteadas.ForEach(q => listBoxSorteadas.Items.Add(q));
+
             btnSortear.Enabled = false;
         }
 
@@ -171,6 +135,37 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 List<Materia> materiasRelacionadas = repositorioMateria.CarregarMateriasDisciplina(disciplinaSelecionada);
 
                 cbMateria.Items.AddRange(materiasRelacionadas.ToArray());
+            }
+        }
+
+        private void btnGravar_Click(object sender, EventArgs e)
+        {
+            Teste teste = ObterTeste();
+
+            ValidarErros(teste);
+        }
+
+        private void ValidarErros(Teste teste)
+        {
+            if (teste == null) return;
+
+            string[] erros = teste.Validar();
+
+            if (erros.Length > 0)
+            {
+                TelaPrincipalForm.Instancia.AtualizarRodape(erros[0]);
+
+                DialogResult = DialogResult.None;
+            }
+
+            foreach (Teste t in testes)
+            {
+                if (teste.Titulo.ToUpper() == t.Titulo.ToUpper() && teste.id != t.id)
+                {
+                    TelaPrincipalForm.Instancia.AtualizarRodape("O título já esta em uso");
+
+                    DialogResult = DialogResult.None;
+                }
             }
         }
     }

@@ -65,7 +65,6 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             return true;
         }
 
-
         private void EscreverPdf()
         {
             string nomePdf = DefinirNomeArquivo();
@@ -77,7 +76,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
 
-            //-------------------------------------------------------------------------------------------------------------------------------------------
+
             doc.Open();
 
             BaseColor corPadrao = BaseColor.BLACK;
@@ -121,13 +120,32 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 doc.Add(new Paragraph(" "));
             });
 
+            testeSelecionado.ListQuestoes.ForEach(q =>
+            {
+                Paragraph questao = new Paragraph(string.Format($"{q}"), fonteQuestao);
+                doc.Add(questao);
+
+                // Verifica se a questão possui alternativas
+                if (q.ListAlternativas != null && q.ListAlternativas.Count > 0)
+                {
+                    // Adiciona as alternativas ao documento
+                    foreach (var alternativa in q.ListAlternativas)
+                    {
+                        Paragraph alt = new Paragraph(string.Format($"- {alternativa}"), fonteQuestao);
+                        doc.Add(alt);
+                    }
+                }
+
+                doc.Add(new Paragraph(" "));
+            });
+
+
             if (rdbGabarito.Checked)
             {
 
             }
 
             doc.Close();
-            //-------------------------------------------------------------------------------------------------------------------------------------------
         }
     }
 }

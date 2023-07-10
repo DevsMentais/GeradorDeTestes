@@ -81,6 +81,12 @@ namespace GeradorDeTestes.WinForms.ModuloMateria
         {
             Materia materiaSelecionada = ObterMateriaSelecionada();
 
+            if (materiaSelecionada == null)
+            {
+                ApresentarMensagem("Selecione uma matéria primeiro!", "Exclusão de Matérias");
+                return;
+            }
+
             DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a matéria {materiaSelecionada.Nome}?", "Exclusão de Matérias",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 

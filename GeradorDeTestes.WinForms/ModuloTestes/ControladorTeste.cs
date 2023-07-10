@@ -5,6 +5,7 @@ using GeradorDeTestes.Dominio.ModuloTestes;
 using GeradorDeTestes.WinForms.Compartilhado;
 using GeradorDeTestes.WinForms.ModuloDisciplina;
 using GeradorDeTestes.WinForms.ModuloQuestoes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GeradorDeTestes.WinForms.ModuloTestes
 {
@@ -92,14 +93,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public override void Excluir()
         {
-            Teste teste = ObterTesteSelecionado();
+            Teste testeSelecionado = ObterTesteSelecionado();
 
-            if (teste == null)
+            if (testeSelecionado == null)
             {
-                MessageBox.Show($"Selecione um teste primeiro!",
-                    "Exclusão de Testes",
-                    MessageBoxButtons.OK,
-                MessageBoxIcon.Exclamation);
+                ApresentarMensagem("Selecione um teste primeiro!", "Exclusão de Testes");
                 return;
             }
 
@@ -108,7 +106,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioTeste.Excluir(teste);
+                repositorioTeste.Excluir(testeSelecionado);
             }
 
             CarregarTestes();
@@ -139,7 +137,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             if (testeSelecionado == null)
             {
-                MessageBox.Show("Selecione um teste primeiro!", "Duplicar teste", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ApresentarMensagem("Selecione um teste primeiro!", "Duplicagem de teste");
                 return;
             }
 
@@ -167,7 +165,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             if (testeSelecionado == null)
             {
-                MessageBox.Show("Selecione um teste primeiro!", "Gerar PDF do teste", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ApresentarMensagem("Selecione um teste primeiro!", "Salvar teste em PDF");
                 return;
             }
 

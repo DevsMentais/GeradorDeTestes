@@ -56,7 +56,7 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                 questao.AdicionarAlternativa(alternativa);
             }
 
-            foreach (Alternativa alternativaMarcada in ObterAlternativas())
+            foreach (Alternativa alternativaMarcada in ObterAlternativasDaLista())
             {
                 Alternativa alternativa = new Alternativa(questao, respostaCerta, true);
                 alternativa.Correta = true;
@@ -102,11 +102,22 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
             }
         }
 
+        public List<Alternativa> ObterAlternativasDaLista()
+        {
+            return chListAlternativas.Items.Cast<Alternativa>().ToList();
+        }
+
+        public List<Alternativa> ObterAlternativasDesmarcadas()
+        {
+            return chListAlternativas.Items.Cast<Alternativa>()
+                .Except(ObterAlternativasDaLista()).ToList();
+        }
+
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
             Alternativa alternativa = ObterAlternativa(questao);
 
-            if(alternativa.Resposta == "")
+            if (alternativa.Resposta == "")
             {
                 TelaPrincipalForm.Instancia.AtualizarRodape("É necessário ter uma resposta");
                 return;
@@ -138,17 +149,6 @@ namespace GeradorDeTestes.WinForms.ModuloQuestoes
                     chListAlternativas.SetItemCheckState(x, CheckState.Unchecked);
                 }
             }
-        }
-
-        public List<Alternativa> ObterAlternativas()
-        {
-            return chListAlternativas.Items.Cast<Alternativa>().ToList();
-        }
-
-        public List<Alternativa> ObterAlternativasDesmarcadas()
-        {
-            return chListAlternativas.Items.Cast<Alternativa>()
-                .Except(ObterAlternativas()).ToList();
         }
 
         private char ObterLetraAlternativa()

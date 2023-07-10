@@ -10,6 +10,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 {
     public class RepositorioMateriaEmSql : RepositorioEmSqlBase<Materia, MapeadorMateria>,IRepositorioMateria
     {
+
+        #region query
+
         protected override string sqlInserir => @"INSERT INTO[DBO].[TBMATERIA]
                                                     (
                                                         [NOME]
@@ -36,50 +39,34 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 		                                                [ID] = @ID";
 
         protected override string sqlSelecionarTodos => @"SELECT 
-	                                                        M.[ID]        MATERIA_ID 
-	                                                       ,M.[NOME]      MATERIA_NOME
-	                                                       ,M.[DISCIPLINA_ID]  DISCIPLINA_ID
-                                                           ,M.[SERIE]     MATERIA_SERIE
-                                                           ,D.[NOME]        DISCIPLINA_NOME
-                                                        FROM 
-	                                                        [TBMATERIA] AS M
-                                                        INNER JOIN [TBDISCIPLINA] AS D
-                                                                ON M.[DISCIPLINA_ID] = D.ID";
+	                                               M.[ID]        MATERIA_ID 
+	                                              ,M.[NOME]      MATERIA_NOME
+	                                              ,M.[DISCIPLINA_ID]  DISCIPLINA_ID
+                                                  ,M.[SERIE]     MATERIA_SERIE
+                                                  ,D.[NOME]        DISCIPLINA_NOME
+                                               FROM 
+	                                               [TBMATERIA] AS M
+                                               INNER JOIN [TBDISCIPLINA] AS D
+                                                       ON M.[DISCIPLINA_ID] = D.ID";
 
         protected override string sqlSelecionarPorId => @"SELECT 
-	                                                    M.[ID]        MATERIA_ID 
-	                                                   ,M.[NOME]      MATERIA_NOME
-	                                                   ,M.[DISCIPLINA_ID]  DISCIPLINA_ID
-                                                       ,M.[SERIE]     MATERIA_SERIE
-                                                       ,D.[NOME]      DISCIPLINA_NOME
-                                                    FROM 
-	                                                    [TBMATERIA] AS M
-                                                    INNER JOIN [TBDISCIPLINA] AS D
-                                                            ON M.[DISCIPLINA_ID] = D.ID
-                                                    WHERE 
-                                                        M.[ID] = @ID";
-
-        //private string sqlSelecionarMateriaNaDisciplina => @"SELECT 
-        //        M.ID                    MATERIA_ID, 
-        //        M.NOME                  MATERIA_NOME,
-        //        M.DISCIPLINA_ID         DISCIPLINA_ID, 
-        //        M.SERIE                 SERIE_ID,
-
-        //        D.ID             DISCIPLINA_ID,
-        //        D.NOME           DISCIPLINA_NOME
-        //    FROM 
-        //        TBMATERIA M
-
-        //        INNER JOIN TBDISCIPLINA D
-
-        //            ON M.DISCIPLINA_ID = D.ID
-        //    WHERE 
-
-        //        M.ID = @MATERIA_ID AND D.ID = @DISCIPLINA_ID";
+	                                               M.[ID]        MATERIA_ID 
+	                                              ,M.[NOME]      MATERIA_NOME
+	                                              ,M.[DISCIPLINA_ID]  DISCIPLINA_ID
+                                                  ,M.[SERIE]     MATERIA_SERIE
+                                                  ,D.[NOME]      DISCIPLINA_NOME
+                                               FROM 
+	                                               [TBMATERIA] AS M
+                                               INNER JOIN [TBDISCIPLINA] AS D
+                                                       ON M.[DISCIPLINA_ID] = D.ID
+                                               WHERE 
+                                                   M.[ID] = @ID";
 
         private string sqlSelecionarMateriaNaDisciplina => @"SELECT * FROM [TBMATERIA] 
-	                                                          WHERE
-		                                                        DISCIPLINA_ID = @DISCIPLINA_ID";
+	                                           WHERE
+		                                         DISCIPLINA_ID = @DISCIPLINA_ID";
+
+        #endregion
 
         public override List<Materia> SelecionarTodos()
         {
@@ -114,7 +101,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
             {
                 MapeadorMateria mapeador = new MapeadorMateria();
 
-                Materia materia = mapeador.ConverterRegistro2(leitorMateria);
+                Materia materia = mapeador.ConverterRegistrosMateria(leitorMateria);
 
                 materias.Add(materia);
             }

@@ -1,6 +1,5 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.WinForms.Compartilhado;
-using System.Drawing.Printing;
 
 namespace GeradorDeTestes.WinForms.ModuloDisciplina
 {

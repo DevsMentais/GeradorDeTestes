@@ -5,6 +5,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 {
     public class RepositorioDisciplinaEmSql : RepositorioEmSqlBase<Disciplina, MapeadorDisciplina>,IRepositorioDisciplina
     {
+
+        #region query
+
         protected override string sqlInserir => @"INSERT INTO [TBDISCIPLINA] 
 	                                            (
 		                                            [NOME]
@@ -14,7 +17,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 		                                            @NOME
 	                                            );                 
 
-                                            SELECT SCOPE_IDENTITY();";
+                                                SELECT SCOPE_IDENTITY();";
 
         protected override string sqlEditar => @"UPDATE [TBDISCIPLINA] 
                                                 SET
@@ -23,22 +26,24 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
                                                     [ID] = @ID";
 
         protected override string sqlExcluir => @"DELETE FROM [TBDISCIPLINA]
-	                                                WHERE 
-		                                                [ID] = @ID";
+	                                            WHERE 
+		                                             [ID] = @ID";
 
         protected override string sqlSelecionarTodos => @"SELECT 
-	                                                    [ID]        DISCIPLINA_ID 
-	                                                   ,[NOME]      DISCIPLINA_NOME
-                                                    FROM 
+	                                                 [ID]        DISCIPLINA_ID 
+	                                                ,[NOME]      DISCIPLINA_NOME
+                                                FROM 
 	                                                    [TBDISCIPLINA]";
 
         protected override string sqlSelecionarPorId => @"SELECT 
-	                                                    [ID]        DISCIPLINA_ID 
-	                                                   ,[NOME]      DISCIPLINA_NOME
-                                                    FROM 
-	                                                    [TBDISCIPLINA] 
-                                                    WHERE 
-                                                        [ID] = @ID";
+	                                                 [ID]        DISCIPLINA_ID 
+	                                                ,[NOME]      DISCIPLINA_NOME
+                                                 FROM 
+	                                                 [TBDISCIPLINA] 
+                                                 WHERE 
+                                                     [ID] = @ID";
+
+        #endregion
 
         public Disciplina SelecionarPorId(int id)
         {
