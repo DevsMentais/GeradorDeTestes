@@ -56,12 +56,12 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                                                            ,D.[ID]                  DISCIPLINA_ID
                                                            ,D.[NOME]                DISCIPLINA_NOME
 
-                                                        FROM 
-	                                                        [TBTESTE] AS T
-                                                        LEFT JOIN [TBMATERIA] AS M
-                                                                ON T.[MATERIA_ID] = M.ID
-                                                        LEFT JOIN [TBDISCIPLINA] AS D
-                                                                ON M.[DISCIPLINA_ID] = D.ID";
+                                                            FROM 
+                                                                [TBTESTE] AS T
+                                                            LEFT JOIN [TBDISCIPLINA] AS D
+                                                                ON T.DISCIPLINA_ID = D.ID
+                                                            LEFT JOIN [TBMATERIA] AS M
+                                                                ON T.MATERIA_ID = M.ID";
 
 
         protected override string sqlSelecionarPorId => @"SELECT 
@@ -77,14 +77,15 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                                                            ,M.[DISCIPLINA_ID]       DISCIPLINA_ID
                                                            ,D.[ID]                  DISCIPLINA_ID
                                                            ,D.[NOME]                DISCIPLINA_NOME
-                                                    FROM 
-	                                                        [TBTESTE] AS T
-                                                        INNER JOIN [TBMATERIA] AS M
-                                                                ON T.[MATERIA_ID] = M.ID
-                                                        INNER JOIN [TBDISCIPLINA] AS D
-                                                                ON M.[DISCIPLINA_ID] = D.ID
-                                                    WHERE 
-                                                        T.[ID] = @ID";
+
+                                                            FROM 
+                                                                    [TBTESTE] AS T
+                                                                LEFT JOIN [TBDISCIPLINA] AS D
+                                                                    ON T.DISCIPLINA_ID = D.ID
+                                                                LEFT JOIN [TBMATERIA] AS M
+                                                                    ON T.MATERIA_ID = M.ID
+                                                                WHERE 
+                                                                    T.[ID] = @ID";
 
 
         private const string sqlAdicionarQuestao = @"INSERT INTO [TBTESTE_TBQUESTOES]
