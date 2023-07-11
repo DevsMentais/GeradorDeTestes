@@ -8,6 +8,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 {
     public partial class TelaTesteForm : Form
     {
+        private Teste teste;
         private List<Questao> questoes;
         private List<Teste> testes;
         private IRepositorioMateria repositorioMateria;
@@ -22,7 +23,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             ConfigurarComboBoxDisciplina(disciplinas);
             ConfigurarComboBoxMateria(materias);
-            this.testes = testes;
+
             this.repositorioMateria = repositorioMateria;
         }
 
@@ -35,7 +36,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             int quantidadeDeQuestoes = int.Parse(numQtdQuestoes.Text);
             bool provaRecuperacao = chProvaRecup.Checked;
 
-            Teste teste = new Teste(id, titulo, disciplina, materia, quantidadeDeQuestoes, provaRecuperacao);
+            teste = new Teste(id, titulo, disciplina, materia, quantidadeDeQuestoes, provaRecuperacao);
 
             return teste;
         }
@@ -68,20 +69,22 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public List<Questao> ObterQuestoesSorteadas()
         {
-            return listBoxSorteadas.Items.Cast<Questao>().ToList();
+           List<Questao> questoes = listBoxSorteadas.Items.Cast<Questao>().ToList();
+            return questoes;
+            //return listBoxSorteadas.Items.Cast<Questao>().ToList();
         }
 
         private void btnSortear_Click(object sender, EventArgs e)
         {
             int quantidade = (int)numQtdQuestoes.Value;
 
-            if (cbMateria.SelectedItem == null)
-            {
-                MessageBox.Show("Selecione uma matéria!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //if (cbMateria.SelectedItem == null)
+            //{
+            //    MessageBox.Show("Selecione uma matéria!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
-            if (quantidade <= 0)
+            if (quantidade < 0)
             {
                 MessageBox.Show("Digite uma quantidade válida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -89,7 +92,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             Materia materiaSelecionada = (Materia)cbMateria.SelectedItem;
 
-            if (questoes.Count <= quantidade)
+            if (questoes.Count < quantidade)
             {
                 MessageBox.Show("Não há questões suficientes para a quantidade solicitada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -107,13 +110,13 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             List<Questao> questoesSorteadas = new List<Questao>();
             Random random = new Random();
             Materia materia = (Materia)cbMateria.SelectedItem;
-
-            List<Questao> questoesFiltradas = questoesDisponiveis.FindAll(x => x.Materia.id == materia.id);
-
+            Disciplina disciplina = (Disciplina)cbDisciplina.SelectedItem;
             
 
-            if(chProvaRecup.Checked == false)
+            if (chProvaRecup.Checked == false)
             {
+                List<Questao> questoesFiltradas = questoesDisponiveis.FindAll(x => x.Materia.id == materia.id);
+
                 for (int i = 0; i < quantidade; i++)
                 {
                     if (questoesFiltradas.Count == 0)
@@ -126,12 +129,10 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             }
             else
             {
-                cbMateria.Enabled = false;
+                List<Questao> questoesDaMateria = questoes.FindAll(q => q.Materia.Disciplina.id == disciplina.id);
 
-                foreach(Materia m in materia.Disciplina.ListMaterias)
+                while (questoesSorteadas.Count < numQtdQuestoes.Value)
                 {
-                    List<Questao> questoesDaMateria = questoes.FindAll(q => q.Materia.Disciplina.id == m.Disciplina.id);
-
                     if (questoesDaMateria.Count == 0)
                         break;
 
@@ -190,12 +191,25 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 }
             }
 
-            if(listBoxSorteadas.Items.Count == 0)
+            if (listBoxSorteadas.Items.Count == 0)
             {
                 TelaPrincipalForm.Instancia.AtualizarRodape("É necessário sortear questões");
 
                 DialogResult = DialogResult.None;
             }
+        }
+
+        private void ConfigurarChProvaRecup()
+        {
+            if(chProvaRecup.Checked)
+                cbMateria.Enabled = false;
+            else
+                cbMateria.Enabled = true;
+        }
+
+        private void chProvaRecup_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigurarChProvaRecup();
         }
     }
 }

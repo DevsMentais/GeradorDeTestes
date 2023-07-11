@@ -58,10 +58,11 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
 
                                                         FROM 
 	                                                        [TBTESTE] AS T
-                                                        INNER JOIN [TBMATERIA] AS M
+                                                        LEFT JOIN [TBMATERIA] AS M
                                                                 ON T.[MATERIA_ID] = M.ID
-                                                        INNER JOIN [TBDISCIPLINA] AS D
+                                                        LEFT JOIN [TBDISCIPLINA] AS D
                                                                 ON M.[DISCIPLINA_ID] = D.ID";
+
 
         protected override string sqlSelecionarPorId => @"SELECT 
 	                                                        T.[ID]                  TESTE_ID 
@@ -132,7 +133,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                                                    WHERE 
 
                                                        TBT.TESTE_ID = @TESTE_ID";
-
         #endregion
 
 
@@ -151,6 +151,8 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
             object id = comandoInserir.ExecuteScalar();
 
             novoRegistro.id = Convert.ToInt32(id);
+
+            novoRegistro.ListQuestoes = questoesAdicionadas;
 
             conexaoComBanco.Close();
 
