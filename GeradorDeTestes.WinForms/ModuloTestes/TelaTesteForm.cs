@@ -8,30 +8,24 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 {
     public partial class TelaTesteForm : Form
     {
-        private Teste teste;
         private List<Questao> questoes;
+        public List<Questao> questoesSorteadas { get; set; } = new List<Questao>();
         private List<Teste> testes;
-        public List<Questao> questoesSorteadas = new List<Questao>();
+
         private IRepositorioMateria repositorioMateria;
 
         public TelaTesteForm(List<Materia> materias, List<Disciplina> disciplinas, List<Questao> questoes, List<Teste> testes, IRepositorioMateria repositorioMateria)
         {
             this.questoes = questoes;
             this.testes = testes;
-            this.repositorioMateria = repositorioMateria;
 
             InitializeComponent();
             this.ConfigurarDialog();
 
             ConfigurarComboBoxDisciplina(disciplinas);
             ConfigurarComboBoxMateria(materias);
-
-            cbDisciplina.DisplayMember = "Nome";
-            cbDisciplina.ValueMember = "Id";
-            cbDisciplina.DataSource = disciplinas;
-
-            cbMateria.DisplayMember = "Nome";
-            cbMateria.ValueMember = "Id";
+            this.testes = testes;
+            this.repositorioMateria = repositorioMateria;
         }
 
         public Teste ObterTeste()
@@ -39,11 +33,12 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             int id = int.Parse(txtId.Text);
             string titulo = txtTitulo.Text;
             Disciplina disciplina = (Disciplina)cbDisciplina.SelectedItem;
-            Materia? materia = (Materia)cbMateria.SelectedItem;
+            Materia materia = (Materia)cbMateria.SelectedItem;
             int quantidadeDeQuestoes = int.Parse(numQtdQuestoes.Text);
             bool provaRecuperacao = chProvaRecup.Checked;
 
-            teste = new Teste(id, titulo, disciplina, materia, quantidadeDeQuestoes, provaRecuperacao);
+            Teste teste = new Teste(id, titulo, disciplina, materia, quantidadeDeQuestoes, provaRecuperacao);
+            teste.id = id;
 
             return teste;
         }
@@ -76,9 +71,7 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
         public List<Questao> ObterQuestoesSorteadas()
         {
-           List<Questao> questoes = listBoxSorteadas.Items.Cast<Questao>().ToList();
-            return questoes;
-            //return listBoxSorteadas.Items.Cast<Questao>().ToList();
+            return listBoxSorteadas.Items.Cast<Questao>().ToList();
         }
 
         private void btnSortear_Click(object sender, EventArgs e)
@@ -91,13 +84,13 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
 
             int quantidade = (int)numQtdQuestoes.Value;
 
-            //if (cbMateria.SelectedItem == null)
-            //{
-            //    MessageBox.Show("Selecione uma matéria!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return;
-            //}
+            if (cbMateria.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione uma matéria!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            if (quantidade < 0)
+            if (quantidade <= 0)
             {
                 MessageBox.Show("Digite uma quantidade válida!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -142,19 +135,10 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             {
                 Disciplina disciplinaSelecionada = (Disciplina)cbDisciplina.SelectedItem;
 
-                cbMateria.Text = "";
-
                 List<Materia> materiasRelacionadas = repositorioMateria.CarregarMateriasDisciplina(disciplinaSelecionada);
 
                 cbMateria.Items.AddRange(materiasRelacionadas.ToArray());
             }
-        }
-
-        private void btnGravar_Click(object sender, EventArgs e)
-        {
-            Teste teste = ObterTeste();
-
-            ValidarErros(teste);
         }
 
         private void ValidarErros(Teste teste)
@@ -170,14 +154,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
                 DialogResult = DialogResult.None;
             }
 
-            foreach (Teste t in testes)
+            if (testes.Contains(teste))
             {
-                if (teste.Titulo.ToUpper() == t.Titulo.ToUpper() && teste.id != t.id)
-                {
-                    TelaPrincipalForm.Instancia.AtualizarRodape("O título já esta em uso");
+                TelaPrincipalForm.Instancia.AtualizarRodape("O título já esta em uso");
 
-                    DialogResult = DialogResult.None;
-                }
+                DialogResult = DialogResult.None;
             }
 
             if (listBoxSorteadas.Items.Count == 0)
@@ -188,18 +169,11 @@ namespace GeradorDeTestes.WinForms.ModuloTestes
             }
         }
 
-        private void ConfigurarChProvaRecup()
+        private void btnGrava_Click(object sender, EventArgs e)
         {
-            if(chProvaRecup.Checked)
-                cbMateria.Enabled = false;
-            else
-                cbMateria.Enabled = true;
-        }
+            Teste teste = ObterTeste();
 
-        private void chProvaRecup_CheckedChanged(object sender, EventArgs e)
-        {
-            ConfigurarChProvaRecup();
+            ValidarErros(teste);
         }
-
     }
 }

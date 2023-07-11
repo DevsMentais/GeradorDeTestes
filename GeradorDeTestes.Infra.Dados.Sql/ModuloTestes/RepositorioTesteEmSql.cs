@@ -63,7 +63,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTestes
                                                             LEFT JOIN [TBMATERIA] AS M
                                                                 ON T.MATERIA_ID = M.ID";
 
-
         protected override string sqlSelecionarPorId => @"SELECT 
 	                                                        T.[ID]                  TESTE_ID 
                                                            ,T.[TITULO]              TESTE_TITULO
